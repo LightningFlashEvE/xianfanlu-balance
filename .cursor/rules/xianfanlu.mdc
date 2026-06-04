@@ -13,4 +13,5 @@ alwaysApply: true
 - 持久化：Server Actions 在 `apps/web/src/actions/`
 - 勿在 Client 组件 import `@xianfanlu/database`
 
-详见根目录 `AGENTS.md`。
+- 数值/平衡报告说明：`docs/BALANCE.md`
+- 编程约定：根目录 `AGENTS.md`

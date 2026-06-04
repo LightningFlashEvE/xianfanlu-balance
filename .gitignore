@@ -7,5 +7,6 @@ dist
 .env
 .env.local
 .DS_Store
+*.tsbuildinfo
 packages/database/prisma/dev.db
 packages/export-game/out
