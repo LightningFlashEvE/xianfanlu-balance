@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f7f3e8;
+  --paper-deep: #efe5cf;
+  --ink: #252019;
+  --muted: #6f6559;
+  --line: #d7c7aa;
+  --jade: #1f7a69;
+  --jade-dark: #15584c;
+  --gold: #b7832d;
+  --red: #a94435;
+  --panel: rgba(255, 252, 245, 0.94);
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", Arial, sans-serif;
+}
+
+body {
+  background:
+    linear-gradient(110deg, rgba(31, 122, 105, 0.12), transparent 30%),
+    linear-gradient(250deg, rgba(169, 68, 53, 0.08), transparent 32%),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}

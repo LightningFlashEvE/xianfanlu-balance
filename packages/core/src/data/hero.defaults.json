@@ -1,0 +1,33 @@
+{
+  "stats": {
+    "level": 1,
+    "hp": 125,
+    "stamina": 100,
+    "attack": 17,
+    "defense": 5,
+    "speed": 10,
+    "hitRate": 85,
+    "dodgeRate": 5,
+    "critRate": 3,
+    "critDamage": 150,
+    "attackInterval": 1.4,
+    "innerPower": 0,
+    "spiritualPower": 0,
+    "spiritShield": 0,
+    "divineSense": 0,
+    "spellPower": 0
+  },
+  "aptitude": {
+    "rootBone": 7,
+    "comprehension": 8,
+    "spiritualRoot": "四灵根（伪） · 木火土水",
+    "spiritualRootElements": ["木", "火", "土", "水"],
+    "luck": 9,
+    "temperament": 6,
+    "cultivationSpeed": 128,
+    "breakthroughBonus": 5,
+    "opportunityBonus": 15
+  },
+  "combatMultiplier": 1.42,
+  "baseBagCapacity": 12
+}

@@ -1,0 +1,16 @@
+---
+description: 仙凡录 monorepo 分层与修改约定
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# 仙凡录
+
+- 公式与 Zod：只改 `packages/core`
+- 数据库：只改 `packages/database/prisma`
+- UI：只改 `apps/web/src/components/features/**`
+- 持久化：Server Actions 在 `apps/web/src/actions/`
+- 勿在 Client 组件 import `@xianfanlu/database`
+
+详见根目录 `AGENTS.md`。

@@ -1,0 +1,17 @@
+[
+  { "name": "普通凡人", "multiplier": 1 },
+  { "name": "江湖三流", "multiplier": 1.75 },
+  { "name": "江湖二流", "multiplier": 3 },
+  { "name": "江湖一流", "multiplier": 5.5 },
+  { "name": "武道宗师", "multiplier": 8 },
+  { "name": "先天武者", "multiplier": 13.5 },
+  { "name": "炼气初期", "multiplier": 20 },
+  { "name": "炼气中期", "multiplier": 36 },
+  { "name": "炼气后期", "multiplier": 58 },
+  { "name": "筑基初期", "multiplier": 96 },
+  { "name": "筑基中期", "multiplier": 195 },
+  { "name": "筑基后期", "multiplier": 340 },
+  { "name": "金丹初期", "multiplier": 580 },
+  { "name": "金丹中期", "multiplier": 980 },
+  { "name": "金丹后期", "multiplier": 1650 }
+]

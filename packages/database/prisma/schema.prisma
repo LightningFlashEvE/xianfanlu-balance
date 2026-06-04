@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Realm {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  multiplier Float
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Equipment {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique
+  name       String
+  slot       String
+  category   String
+  quality      String
+  balanceRealm String   @default("")
+  combat       Json
+  growth       Json
+  note         String   @default("")
+  enabled      Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Manual {
+  id          Int      @id @default(autoincrement())
+  externalId  String   @unique
+  name        String
+  type        String
+  rank        String
+  quality     String
+  maxRealm    String
+  level       Int      @default(1)
+  proficiency String   @default("初窥门径")
+  combat      Json
+  growth      Json
+  note        String   @default("")
+  enabled     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HeroConfig {
+  id                 Int    @id @default(1)
+  heroRealm          String @default("普通凡人")
+  combatMultiplier   Float  @default(1.2)
+  baseBagCapacity    Int    @default(12)
+  stats              Json
+  aptitude           Json
+  heroEquipmentIds   Json
+  enemyEquipmentIds  Json
+  attackerRealm      String @default("普通凡人")
+  defenderRealm      String @default("江湖三流")
+  enemyTemplateScale Float  @default(0.88)
+  updatedAt          DateTime @updatedAt
+}
+
+/// 单例：最新一份 AI 平衡报告（id 固定为 1）
+model BalanceReportCache {
+  id          Int       @id @default(1)
+  status      String    @default("idle")
+  startedAt   DateTime?
+  completedAt DateTime?
+  result      Json?
+  error       String?
+  updatedAt   DateTime  @updatedAt
+}

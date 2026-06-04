@@ -1,0 +1,28 @@
+{
+  "name": "@xianfanlu/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/client.ts",
+    "./seed": "./src/seed-data.ts"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "push": "prisma db push --accept-data-loss",
+    "seed": "tsx prisma/seed.ts",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "@xianfanlu/core": "workspace:*"
+  },
+  "devDependencies": {
+    "prisma": "^6.8.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

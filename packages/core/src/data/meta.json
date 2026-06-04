@@ -1,0 +1,26 @@
+{
+  "proficiencyOptions": [
+    { "name": "初窥门径", "scale": 0.3 },
+    { "name": "略有小成", "scale": 0.6 },
+    { "name": "融会贯通", "scale": 0.85 },
+    { "name": "炉火纯青", "scale": 1 },
+    { "name": "登峰造极", "scale": 1.15 }
+  ],
+  "spiritualRootCountMultipliers": {
+    "1": 1.28,
+    "2": 1.05,
+    "3": 0.95,
+    "4": 0.72,
+    "5": 0.6
+  },
+  "manualBalance": {
+    "proficiencyEffectWeight": 0.19,
+    "qualityCombatScale": {
+      "凡品": 1,
+      "良品": 1.06,
+      "珍品": 1.14,
+      "绝品": 1.22,
+      "未知": 1
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@xianfanlu/export-game",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@xianfanlu/core": "workspace:*",
+    "@xianfanlu/database": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

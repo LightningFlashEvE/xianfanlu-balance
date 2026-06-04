@@ -1,0 +1,25 @@
+{
+  "name": "xianfanlu",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter @xianfanlu/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm --filter @xianfanlu/web lint",
+    "db:generate": "pnpm --filter @xianfanlu/database generate",
+    "db:push": "pnpm --filter @xianfanlu/database push",
+    "db:seed": "pnpm --filter @xianfanlu/database seed",
+    "db:studio": "pnpm --filter @xianfanlu/database studio",
+    "export:game": "pnpm --filter @xianfanlu/export-game run export"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
