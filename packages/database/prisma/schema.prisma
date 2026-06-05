@@ -19,11 +19,17 @@ model Realm {
 model Equipment {
   id         Int      @id @default(autoincrement())
   externalId String   @unique
+  baseId     String   @default("")
   name       String
   slot       String
   category   String
   quality      String
   balanceRealm String   @default("")
+  dropTags     Json?
+  forgeTags    Json?
+  upgradeTier  Int      @default(0)
+  affixSlots   Int      @default(0)
+  affixTags    Json?
   combat       Json
   growth       Json
   note         String   @default("")
@@ -38,7 +44,6 @@ model Manual {
   name        String
   type        String
   rank        String
-  quality     String
   maxRealm    String
   level       Int      @default(1)
   proficiency String   @default("初窥门径")
@@ -72,6 +77,7 @@ model BalanceReportCache {
   startedAt   DateTime?
   completedAt DateTime?
   result      Json?
+  tokenUsage  Json?
   error       String?
   updatedAt   DateTime  @updatedAt
 }

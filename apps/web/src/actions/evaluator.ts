@@ -12,7 +12,6 @@ export async function listManualActivation() {
       name: true,
       type: true,
       rank: true,
-      quality: true,
       enabled: true,
       proficiency: true,
     },

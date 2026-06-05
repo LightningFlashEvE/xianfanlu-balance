@@ -25,7 +25,7 @@ function sortRanks(ranks: string[]) {
 function matchesQuery(manual: ManualRow, query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  const haystack = `${manual.name} ${manual.externalId} ${manual.type} ${manual.rank} ${manual.quality}`.toLowerCase();
+  const haystack = `${manual.name} ${manual.externalId} ${manual.type} ${manual.rank}`.toLowerCase();
   return haystack.includes(q);
 }
 

@@ -2,7 +2,10 @@
 
 import { revalidateBalancePages } from "@/lib/revalidate-paths";
 import { computeSandboxCombat } from "@/lib/sandbox-combat";
-import { resolveAllSandboxEnemyPresets } from "@xianfanlu/core";
+import {
+  filterEnemyEquipmentIdsForRealm,
+  resolveAllSandboxEnemyPresets,
+} from "@xianfanlu/core";
 import { prisma } from "@/lib/db";
 import { listManualActivation } from "./evaluator";
 import { loadBalanceState } from "./state";
@@ -47,15 +50,23 @@ export async function updateSandboxConfig(update: SandboxConfigUpdate) {
     throw new Error("HeroConfig 未初始化，请先执行 pnpm db:seed");
   }
 
+  const currentState = await loadBalanceState();
+  const defenderRealm = update.defenderRealm ?? current.defenderRealm;
+  const enemyEquipmentIds = filterEnemyEquipmentIdsForRealm(
+    currentState.equipment,
+    update.enemyEquipmentIds ?? (current.enemyEquipmentIds as string[]),
+    defenderRealm,
+  );
+
   await prisma.heroConfig.update({
     where: { id: 1 },
     data: {
       attackerRealm: update.attackerRealm ?? current.attackerRealm,
-      defenderRealm: update.defenderRealm ?? current.defenderRealm,
+      defenderRealm,
       enemyTemplateScale: update.enemyTemplateScale ?? current.enemyTemplateScale,
       baseBagCapacity: update.baseBagCapacity ?? current.baseBagCapacity,
       heroEquipmentIds: update.heroEquipmentIds ?? (current.heroEquipmentIds as string[]),
-      enemyEquipmentIds: update.enemyEquipmentIds ?? (current.enemyEquipmentIds as string[]),
+      enemyEquipmentIds,
     },
   });
 

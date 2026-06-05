@@ -1,9 +1,7 @@
 import { z } from "zod";
-import { itemQualityIdSchema } from "../data/item-quality";
 import { realmNameSchema } from "../data/realm-names";
 import { combatEffectsSchema, growthEffectsSchema } from "./effects";
 
-const qualityEnum = z.enum(itemQualityIdSchema);
 const maxRealmEnum = z.enum(realmNameSchema);
 
 export const manualDefSchema = z.object({
@@ -11,7 +9,6 @@ export const manualDefSchema = z.object({
   name: z.string().min(1),
   type: z.string().min(1),
   rank: z.string().min(1),
-  quality: qualityEnum.default("凡品"),
   maxRealm: maxRealmEnum.default("普通凡人"),
   combat: combatEffectsSchema.default({}),
   growth: growthEffectsSchema.default({}),

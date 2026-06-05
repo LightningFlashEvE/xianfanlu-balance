@@ -55,7 +55,19 @@ export function BalanceReportResultView({ report }: Props) {
         <p className="text-sm font-bold text-red-800">{report.error}</p>
       )}
       {report.aiError && !report.error && (
-        <p className="text-sm text-amber-900">{report.aiError}</p>
+        <div className="rounded border border-amber-600/40 bg-amber-500/5 p-3">
+          <p className="text-sm font-bold text-amber-900">{report.aiError}</p>
+          {report.rawContent && (
+            <details className="mt-2">
+              <summary className="cursor-pointer text-xs text-[#6f6559] hover:text-[#3d3830]">
+                查看 AI 原始返回（{report.rawContent.length} 字符）
+              </summary>
+              <pre className="mt-1 max-h-96 overflow-auto whitespace-pre-wrap rounded border border-[#d7c7aa]/50 bg-white/70 p-2 text-[11px] leading-relaxed text-[#3d3830]">
+                {report.rawContent}
+              </pre>
+            </details>
+          )}
+        </div>
       )}
 
       {report.ai && (

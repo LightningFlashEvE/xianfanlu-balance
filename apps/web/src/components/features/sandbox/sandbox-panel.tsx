@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+  filterEnemyEquipmentForRealm,
+  filterEnemyEquipmentIdsForRealm,
   findMatchingSandboxEnemyPreset,
   validateLoadout,
   type EquipmentInstance,
@@ -38,6 +40,15 @@ export function SandboxPanel({ initial, equipmentInstances }: Props) {
   const [heroPower, setHeroPower] = useState(initial.heroPower);
   const [enemyPower, setEnemyPower] = useState(initial.enemyPower);
   const [message, setMessage] = useState<{ hero: string; enemy: string }>({ hero: "", enemy: "" });
+  const enemyEquipmentOptions = filterEnemyEquipmentForRealm(
+    equipmentInstances,
+    config.defenderRealm,
+  );
+  const filteredEnemyEquipmentIds = filterEnemyEquipmentIdsForRealm(
+    equipmentInstances,
+    config.enemyEquipmentIds,
+    config.defenderRealm,
+  );
 
   useEffect(() => {
     setDuel(initial.duel);
@@ -87,7 +98,7 @@ export function SandboxPanel({ initial, equipmentInstances }: Props) {
 
   const activeEnemyPreset = findMatchingSandboxEnemyPreset(initial.enemyPresets, {
     defenderRealm: config.defenderRealm,
-    enemyEquipmentIds: config.enemyEquipmentIds,
+    enemyEquipmentIds: filteredEnemyEquipmentIds,
     enemyTemplateScale: config.enemyTemplateScale,
   });
 
@@ -116,14 +127,18 @@ export function SandboxPanel({ initial, equipmentInstances }: Props) {
 
   const setLoadout = (side: "hero" | "enemy", ids: string[]) => {
     const key = side === "hero" ? "heroEquipmentIds" : "enemyEquipmentIds";
-    const check = validateLoadout(equipmentInstances, ids, config.baseBagCapacity);
+    const nextIds =
+      side === "enemy"
+        ? filterEnemyEquipmentIdsForRealm(equipmentInstances, ids, config.defenderRealm)
+        : ids;
+    const check = validateLoadout(equipmentInstances, nextIds, config.baseBagCapacity);
     if (!check.valid) {
       setMessage((m) => ({ ...m, [side]: check.message }));
       return;
     }
-    const next = { ...config, [key]: ids };
+    const next = { ...config, [key]: nextIds };
     setConfig(next);
-    persist({ [key]: ids }, next);
+    persist({ [key]: nextIds }, next);
   };
 
   return (
@@ -154,9 +169,14 @@ export function SandboxPanel({ initial, equipmentInstances }: Props) {
             realms={initial.realms}
             pending={pending}
             onChange={(defenderRealm) => {
-              const next = { ...config, defenderRealm };
+              const enemyEquipmentIds = filterEnemyEquipmentIdsForRealm(
+                equipmentInstances,
+                config.enemyEquipmentIds,
+                defenderRealm,
+              );
+              const next = { ...config, defenderRealm, enemyEquipmentIds };
               setConfig(next);
-              persist({ defenderRealm }, next);
+              persist({ defenderRealm, enemyEquipmentIds }, next);
             }}
           />
           <label className="grid gap-1 text-xs font-bold text-[#6f6559]">
@@ -234,8 +254,8 @@ export function SandboxPanel({ initial, equipmentInstances }: Props) {
             />
             <CharacterLoadoutPanel
               title="敌方"
-              ids={config.enemyEquipmentIds}
-              equipment={equipmentInstances}
+              ids={filteredEnemyEquipmentIds}
+              equipment={enemyEquipmentOptions}
               baseBagCapacity={config.baseBagCapacity}
               pending={pending}
               message={message.enemy}

@@ -20,7 +20,7 @@ export async function ProgressionChartsSection() {
           <CardDescription>Combat Benchmark</CardDescription>
           <CardTitle className="mb-1">战力对比曲线</CardTitle>
           <p className="mb-3 text-xs text-[#6f6559]">
-            绿线：标准养成主角战力；灰虚线：同阶镜像；红虚线：下境界守门。
+            绿线：标准养成主角战力；灰虚线：同阶镜像；红虚线：独立破境守门模板。
           </p>
           <ProgressionCurveChart
             points={chart.points.map((p) => ({

@@ -15,12 +15,21 @@
   },
   "manualBalance": {
     "proficiencyEffectWeight": 0.19,
-    "qualityCombatScale": {
-      "凡品": 1,
-      "良品": 1.06,
-      "珍品": 1.14,
-      "绝品": 1.22,
-      "未知": 1
+    "milestoneMaxManualsByBand": {
+      "凡俗期": 1,
+      "江湖期": 3,
+      "宗师期": 4,
+      "先天期": 4,
+      "炼气期": 5,
+      "筑基期": 5,
+      "金丹期": 6
+    },
+    "milestoneManualGroupCaps": {
+      "主修功法": 1,
+      "身法": 1,
+      "武技": 2,
+      "术法": 2,
+      "通用": 1
     }
   }
 }

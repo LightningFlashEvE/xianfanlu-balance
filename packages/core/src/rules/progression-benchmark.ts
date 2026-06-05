@@ -5,7 +5,20 @@ import { simulateDuel } from "../calc/duel";
 import type { Aptitude, HeroStats } from "../schemas/hero";
 import type { EquipmentInstance } from "../schemas/equipment";
 import type { ManualInstance } from "../schemas/manual";
-import { buildRealmOrderMap, resolveMilestoneEquipmentIds, type RealmOrdered } from "./milestone-loadout";
+import {
+  buildRealmOrderMap,
+  resolveMilestoneEquipmentIds,
+  resolveMilestoneManuals,
+  type RealmOrdered,
+} from "./milestone-loadout";
+import { mapRealmNameToBalanceBand } from "../data/balance-realm-bands";
+import { getBreakthroughGateTemplateScale } from "../data/sandbox-enemy-presets";
+import {
+  resolveBreakthroughGateEnemyEquipmentIds,
+  resolveEnemyMilestoneEquipmentIds,
+} from "./sandbox-enemy-preset";
+
+export { resolveMilestoneManuals } from "./milestone-loadout";
 
 export type RealmBenchmark = RealmOrdered & { multiplier: number };
 
@@ -27,19 +40,6 @@ export type CrossRealmRisk = {
   powerGap: number;
   verdict: string;
 };
-
-export function resolveMilestoneManuals(
-  manuals: ManualInstance[],
-  targetRealm: string,
-  realmOrder: Map<string, number>,
-) {
-  const targetOrder = realmOrder.get(targetRealm);
-  if (targetOrder === undefined) return [];
-  return manuals.filter((manual) => {
-    const order = realmOrder.get(manual.maxRealm);
-    return order !== undefined && order <= targetOrder;
-  });
-}
 
 function powerAtRealm(params: {
   baseStats: HeroStats;
@@ -99,12 +99,18 @@ export function buildProgressionBenchmark(params: {
   manuals: ManualInstance[];
   combatMultiplier: number;
   enemyTemplateScale?: number;
+  baseBagCapacity?: number;
 }): ProgressionPoint[] {
   const realmOrder = buildRealmOrderMap(params.realms);
-  const enemyScale = params.enemyTemplateScale ?? 1;
+  const baseBagCapacity = params.baseBagCapacity ?? 12;
 
   return params.realms.map((realm, index) => {
     const equipmentIds = resolveMilestoneEquipmentIds(params.equipment, realm.name, realmOrder);
+    const mirrorEnemyIds = resolveEnemyMilestoneEquipmentIds(
+      params.equipment,
+      realm.name,
+      realmOrder,
+    );
     const milestoneManuals = resolveMilestoneManuals(params.manuals, realm.name, realmOrder);
 
     const heroPower = powerAtRealm({
@@ -122,7 +128,7 @@ export function buildProgressionBenchmark(params: {
       aptitude: params.aptitude,
       equipment: params.equipment,
       manuals: milestoneManuals,
-      equipmentIds,
+      equipmentIds: mirrorEnemyIds,
       realmMultiplier: realm.multiplier,
       potentialMultiplier: 1,
     });
@@ -132,8 +138,15 @@ export function buildProgressionBenchmark(params: {
     let heroVsNextWin: number | null = null;
 
     if (nextRealm) {
-      const nextIds = resolveMilestoneEquipmentIds(params.equipment, nextRealm.name, realmOrder);
+      const nextIds = resolveBreakthroughGateEnemyEquipmentIds(
+        params.equipment,
+        nextRealm.name,
+        baseBagCapacity,
+      );
       const nextManuals = resolveMilestoneManuals(params.manuals, nextRealm.name, realmOrder);
+      const gateScale = getBreakthroughGateTemplateScale(
+        mapRealmNameToBalanceBand(nextRealm.name),
+      );
       nextGatePower = powerAtRealm({
         baseStats: params.baseStats,
         aptitude: params.aptitude,
@@ -142,7 +155,7 @@ export function buildProgressionBenchmark(params: {
         equipmentIds: nextIds,
         realmMultiplier: nextRealm.multiplier,
         potentialMultiplier: 1,
-        templateScale: enemyScale,
+        templateScale: gateScale,
       });
 
       const heroCtx = getEvaluationContext({
@@ -169,7 +182,7 @@ export function buildProgressionBenchmark(params: {
         heroRealmMultiplier: realm.multiplier,
         enemyRealmMultiplier: nextRealm.multiplier,
         heroPotentialMultiplier: params.combatMultiplier,
-        enemyTemplateScale: enemyScale,
+        enemyTemplateScale: gateScale,
       });
       heroVsNextWin = duel.chance;
     }
@@ -180,7 +193,7 @@ export function buildProgressionBenchmark(params: {
         aptitude: params.aptitude,
         equipment: params.equipment,
         manuals: milestoneManuals,
-        equipmentIds,
+        equipmentIds: mirrorEnemyIds,
         includeManuals: true,
         manualFilter: "milestone",
       }).stats,
@@ -267,11 +280,13 @@ export function findCrossRealmRisks(
     manuals: ManualInstance[];
     combatMultiplier: number;
     enemyTemplateScale?: number;
+    baseBagCapacity?: number;
   },
   maxGap = 2,
 ): CrossRealmRisk[] {
   const realmOrder = buildRealmOrderMap(params.realms);
   const enemyScale = params.enemyTemplateScale ?? 1;
+  const baseBagCapacity = params.baseBagCapacity ?? 12;
   const risks: CrossRealmRisk[] = [];
 
   for (let heroIndex = 0; heroIndex < params.realms.length; heroIndex += 1) {
@@ -282,8 +297,19 @@ export function findCrossRealmRisks(
 
       const heroIds = resolveMilestoneEquipmentIds(params.equipment, heroRealm.name, realmOrder);
       const heroManuals = resolveMilestoneManuals(params.manuals, heroRealm.name, realmOrder);
-      const enemyIds = resolveMilestoneEquipmentIds(params.equipment, enemyRealm.name, realmOrder);
+      const enemyIds =
+        enemyIndex === heroIndex + 1
+          ? resolveBreakthroughGateEnemyEquipmentIds(
+              params.equipment,
+              enemyRealm.name,
+              baseBagCapacity,
+            )
+          : resolveEnemyMilestoneEquipmentIds(params.equipment, enemyRealm.name, realmOrder);
       const enemyManuals = resolveMilestoneManuals(params.manuals, enemyRealm.name, realmOrder);
+      const gateScale =
+        enemyIndex === heroIndex + 1
+          ? getBreakthroughGateTemplateScale(mapRealmNameToBalanceBand(enemyRealm.name))
+          : enemyScale;
 
       const heroCtx = getEvaluationContext({
         baseStats: params.baseStats,
@@ -310,7 +336,7 @@ export function findCrossRealmRisks(
         heroRealmMultiplier: heroRealm.multiplier,
         enemyRealmMultiplier: enemyRealm.multiplier,
         heroPotentialMultiplier: params.combatMultiplier,
-        enemyTemplateScale: enemyScale,
+        enemyTemplateScale: gateScale,
       });
 
       if (duel.chance < 0.42) {

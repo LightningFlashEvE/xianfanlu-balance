@@ -11,6 +11,7 @@ import {
   migrateLegacyMaxRealm,
   normalizeEquipmentCategory,
   normalizeEquipmentSlot,
+  normalizeStringList,
   calculateRatedPower,
   findCrossRealmRisks,
   formatCompact,
@@ -47,6 +48,7 @@ export async function getEvaluatorSummary() {
     manuals: state.manuals,
     combatMultiplier: state.combatMultiplier,
     enemyTemplateScale: state.enemyTemplateScale,
+    baseBagCapacity: state.baseBagCapacity,
   });
   const progressionAnalysis = analyzeProgressionBenchmark(progressionPoints);
 
@@ -103,6 +105,7 @@ export async function getProgressionChartData() {
     manuals: state.manuals,
     combatMultiplier: state.combatMultiplier,
     enemyTemplateScale: state.enemyTemplateScale,
+    baseBagCapacity: state.baseBagCapacity,
   };
   const points = buildProgressionBenchmark(params);
   return {
@@ -129,6 +132,7 @@ export async function listEquipment() {
   return rows.map((row) => ({
     id: row.id,
     externalId: row.externalId,
+    baseId: row.baseId?.trim() || row.externalId,
     name: row.name,
     slot: row.slot,
     category: row.category,
@@ -146,7 +150,6 @@ export async function listManuals() {
     name: row.name,
     type: row.type,
     rank: row.rank,
-    quality: row.quality,
     enabled: row.enabled,
     level: row.level,
     proficiency: row.proficiency,
@@ -166,23 +169,28 @@ export async function exportBalanceJson() {
     equipment: equipmentRows.map((e) => {
       const slot = normalizeEquipmentSlot(e.slot);
       return {
-      id: e.externalId,
-      name: e.name,
-      slot,
-      category: normalizeEquipmentCategory(slot, e.category),
-      quality: migrateLegacyItemQuality(e.quality),
-      balanceRealm: migrateLegacyBalanceRealm(e.balanceRealm),
-      combat: (e.combat as Record<string, number>) ?? {},
-      growth: (e.growth as Record<string, number>) ?? {},
-      note: e.note,
-    };
+        id: e.externalId,
+        baseId: e.baseId?.trim() || e.externalId,
+        name: e.name,
+        slot,
+        category: normalizeEquipmentCategory(slot, e.category),
+        quality: migrateLegacyItemQuality(e.quality),
+        balanceRealm: migrateLegacyBalanceRealm(e.balanceRealm),
+        dropTags: normalizeStringList(e.dropTags),
+        forgeTags: normalizeStringList(e.forgeTags),
+        upgradeTier: e.upgradeTier ?? 0,
+        affixSlots: e.affixSlots ?? 0,
+        affixTags: normalizeStringList(e.affixTags),
+        combat: (e.combat as Record<string, number>) ?? {},
+        growth: (e.growth as Record<string, number>) ?? {},
+        note: e.note,
+      };
     }),
     manuals: manualRows.map((m) => ({
       id: m.externalId,
       name: m.name,
       type: m.type,
       rank: m.rank,
-      quality: migrateLegacyItemQuality(m.quality),
       maxRealm: migrateLegacyMaxRealm(m.maxRealm),
       combat: (m.combat as Record<string, number>) ?? {},
       growth: (m.growth as Record<string, number>) ?? {},

@@ -6,9 +6,18 @@
     "category": "剑",
     "quality": "凡品",
     "balanceRealm": "凡俗期",
-    "combat": { "attackFlat": 4, "hitRateFlat": 1 },
+    "combat": {
+      "attackFlat": 5,
+      "hitRateFlat": 2
+    },
     "growth": {},
-    "note": "凡人阶段短期战力补足"
+    "note": "凡人阶段短期战力补足",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0,
+      "spiritName": "铁心",
+      "spiritSkillHint": "最初始的剑道记忆，虽为凡铁却承载初心"
+    }
   },
   {
     "id": "E002",
@@ -17,9 +26,17 @@
     "category": "衣甲",
     "quality": "凡品",
     "balanceRealm": "凡俗期",
-    "combat": { "hpFlat": 10, "defenseFlat": 1 },
+    "combat": {
+      "hpFlat": 12,
+      "defenseFlat": 2
+    },
     "growth": {},
-    "note": "只提供基础保护"
+    "note": "只提供基础保护",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0,
+      "spiritName": "布衣"
+    }
   },
   {
     "id": "E003",
@@ -29,8 +46,16 @@
     "quality": "绝品",
     "balanceRealm": "凡俗期",
     "combat": {},
-    "growth": { "opportunityBonus": 10, "resourceCostMultiplier": 0.9 },
-    "note": "催生灵草，补资源短板"
+    "growth": {
+      "opportunityBonus": 10,
+      "resourceCostMultiplier": 0.9
+    },
+    "note": "催生灵草，补资源短板",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 4,
+      "spiritName": "玉瓶"
+    }
   },
   {
     "id": "E004",
@@ -39,9 +64,17 @@
     "category": "剑",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 9, "hitRateFlat": 2, "critRateFlat": 1 },
+    "combat": {
+      "attackFlat": 9,
+      "hitRateFlat": 2,
+      "critRateFlat": 1
+    },
     "growth": {},
-    "note": "江湖三流后替换旧铁剑"
+    "note": "江湖三流后替换旧铁剑",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E005",
@@ -50,9 +83,16 @@
     "category": "靴子",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "speedPercent": 0.09, "dodgeRateFlat": 2 },
+    "combat": {
+      "speedPercent": 0.09,
+      "dodgeRateFlat": 2
+    },
     "growth": {},
-    "note": "改善先手和生存"
+    "note": "改善先手和生存",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E006",
@@ -61,9 +101,18 @@
     "category": "护符",
     "quality": "珍品",
     "balanceRealm": "炼气期",
-    "combat": { "spiritShieldFlat": 46, "defensePercent": 0.1 },
-    "growth": { "resourceCostMultiplier": 1.08 },
-    "note": "炼气期防御外物"
+    "combat": {
+      "spiritShieldFlat": 58,
+      "defensePercent": 0.12
+    },
+    "growth": {
+      "resourceCostMultiplier": 1.08
+    },
+    "note": "炼气期防御外物",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
   },
   {
     "id": "E007",
@@ -73,8 +122,14 @@
     "quality": "凡品",
     "balanceRealm": "江湖期",
     "combat": {},
-    "growth": { "bagCapacityFlat": 8 },
-    "note": "装备于储物袋栏×1，提供背包容量加成"
+    "growth": {
+      "bagCapacityFlat": 8
+    },
+    "note": "装备于储物袋栏×1，提供背包容量加成",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E008",
@@ -83,9 +138,16 @@
     "category": "攻击符",
     "quality": "珍品",
     "balanceRealm": "炼气期",
-    "combat": { "spellPowerFlat": 13, "critRateFlat": 1 },
+    "combat": {
+      "spellPowerFlat": 13,
+      "critRateFlat": 1
+    },
     "growth": {},
-    "note": "一次性爆发道具，暂不限制携带数量"
+    "note": "一次性爆发道具，暂不限制携带数量",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
   },
   {
     "id": "E009",
@@ -94,9 +156,16 @@
     "category": "战斗傀儡",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "defenseFlat": 4, "attackFlat": 2 },
+    "combat": {
+      "defenseFlat": 4,
+      "attackFlat": 2
+    },
     "growth": {},
-    "note": "傀儡暂不限制数量，只占背包"
+    "note": "傀儡暂不限制数量，只占背包",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E010",
@@ -105,9 +174,16 @@
     "category": "头巾",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "hpFlat": 5, "defenseFlat": 1 },
+    "combat": {
+      "hpFlat": 5,
+      "defenseFlat": 1
+    },
     "growth": {},
-    "note": "头部防具"
+    "note": "头部防具",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E011",
@@ -116,9 +192,16 @@
     "category": "枪",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 6, "hitRateFlat": 1 },
+    "combat": {
+      "attackFlat": 6,
+      "hitRateFlat": 1
+    },
     "growth": {},
-    "note": "长兵样例"
+    "note": "长兵样例",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E012",
@@ -127,9 +210,17 @@
     "category": "弓箭",
     "quality": "良品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 4, "spellPowerFlat": 4, "hitRateFlat": 2 },
+    "combat": {
+      "attackFlat": 4,
+      "spellPowerFlat": 4,
+      "hitRateFlat": 2
+    },
     "growth": {},
-    "note": "远程武器样例"
+    "note": "远程武器样例",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E013",
@@ -138,9 +229,15 @@
     "category": "刀",
     "quality": "凡品",
     "balanceRealm": "凡俗期",
-    "combat": { "attackFlat": 4 },
+    "combat": {
+      "attackFlat": 4
+    },
     "growth": {},
-    "note": "短兵入门"
+    "note": "短兵入门",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E014",
@@ -149,9 +246,16 @@
     "category": "戒指",
     "quality": "凡品",
     "balanceRealm": "凡俗期",
-    "combat": { "hpFlat": 5, "defenseFlat": 1 },
+    "combat": {
+      "hpFlat": 7,
+      "defenseFlat": 2
+    },
     "growth": {},
-    "note": "首个饰品栏条目"
+    "note": "首个饰品栏条目",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E015",
@@ -160,9 +264,16 @@
     "category": "拳套",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 5, "critRateFlat": 1 },
+    "combat": {
+      "attackFlat": 5,
+      "critRateFlat": 1
+    },
     "growth": {},
-    "note": "短兵拳脚"
+    "note": "短兵拳脚",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E016",
@@ -171,9 +282,16 @@
     "category": "棍",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 7, "defenseFlat": 1 },
+    "combat": {
+      "attackFlat": 7,
+      "defenseFlat": 1
+    },
     "growth": {},
-    "note": "长兵偏稳"
+    "note": "长兵偏稳",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E017",
@@ -182,9 +300,17 @@
     "category": "暗器",
     "quality": "良品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 3, "spellPowerFlat": 5, "hitRateFlat": 2 },
+    "combat": {
+      "attackFlat": 3,
+      "spellPowerFlat": 5,
+      "hitRateFlat": 2
+    },
     "growth": {},
-    "note": "远程暗器"
+    "note": "远程暗器",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E018",
@@ -193,9 +319,16 @@
     "category": "戒指",
     "quality": "凡品",
     "balanceRealm": "江湖期",
-    "combat": { "attackFlat": 2, "hitRateFlat": 1 },
+    "combat": {
+      "attackFlat": 2,
+      "hitRateFlat": 1
+    },
     "growth": {},
-    "note": "江湖佩饰"
+    "note": "江湖佩饰",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E019",
@@ -204,9 +337,16 @@
     "category": "玉佩",
     "quality": "良品",
     "balanceRealm": "江湖期",
-    "combat": { "hpFlat": 10, "dodgeRateFlat": 1 },
+    "combat": {
+      "hpFlat": 10,
+      "dodgeRateFlat": 1
+    },
     "growth": {},
-    "note": "江湖玉佩"
+    "note": "江湖玉佩",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E020",
@@ -215,9 +355,18 @@
     "category": "刀",
     "quality": "良品",
     "balanceRealm": "宗师期",
-    "combat": { "attackFlat": 14, "critRateFlat": 2 },
+    "combat": {
+      "attackFlat": 14,
+      "critRateFlat": 2
+    },
     "growth": {},
-    "note": "宗师期主战刀"
+    "note": "宗师期主战刀",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2,
+      "spiritName": "百斩",
+      "spiritSkillHint": "百炼成钢的刀意，每斩一次都更加凌厉"
+    }
   },
   {
     "id": "E021",
@@ -226,9 +375,16 @@
     "category": "衣甲",
     "quality": "良品",
     "balanceRealm": "宗师期",
-    "combat": { "hpFlat": 26, "defenseFlat": 3 },
+    "combat": {
+      "hpFlat": 26,
+      "defenseFlat": 3
+    },
     "growth": {},
-    "note": "宗师期衣甲"
+    "note": "宗师期衣甲",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E022",
@@ -237,9 +393,16 @@
     "category": "靴子",
     "quality": "凡品",
     "balanceRealm": "宗师期",
-    "combat": { "speedPercent": 0.116, "dodgeRateFlat": 3 },
+    "combat": {
+      "speedPercent": 0.116,
+      "dodgeRateFlat": 3
+    },
     "growth": {},
-    "note": "宗师期靴子"
+    "note": "宗师期靴子",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E023",
@@ -248,9 +411,16 @@
     "category": "护符",
     "quality": "珍品",
     "balanceRealm": "宗师期",
-    "combat": { "defensePercent": 0.1, "hpFlat": 15 },
+    "combat": {
+      "defensePercent": 0.1,
+      "hpFlat": 15
+    },
     "growth": {},
-    "note": "宗师期法器"
+    "note": "宗师期法器",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
   },
   {
     "id": "E024",
@@ -259,9 +429,18 @@
     "category": "剑",
     "quality": "珍品",
     "balanceRealm": "先天期",
-    "combat": { "attackFlat": 18, "innerPowerFlat": 9 },
+    "combat": {
+      "attackFlat": 18,
+      "innerPowerFlat": 9
+    },
     "growth": {},
-    "note": "先天期佩剑"
+    "note": "先天期佩剑",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "先天",
+      "spiritSkillHint": "先天剑气的残留，佩剑自带一丝剑意"
+    }
   },
   {
     "id": "E025",
@@ -270,9 +449,16 @@
     "category": "帽子",
     "quality": "良品",
     "balanceRealm": "先天期",
-    "combat": { "hpFlat": 18, "spiritShieldFlat": 10 },
+    "combat": {
+      "hpFlat": 18,
+      "spiritShieldFlat": 10
+    },
     "growth": {},
-    "note": "先天期头饰"
+    "note": "先天期头饰",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E026",
@@ -281,9 +467,16 @@
     "category": "玉佩",
     "quality": "珍品",
     "balanceRealm": "先天期",
-    "combat": { "innerPowerFlat": 12, "hpPercent": 0.05 },
+    "combat": {
+      "innerPowerFlat": 12,
+      "hpPercent": 0.05
+    },
     "growth": {},
-    "note": "先天期玉佩"
+    "note": "先天期玉佩",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
   },
   {
     "id": "E027",
@@ -292,9 +485,17 @@
     "category": "飞剑法器",
     "quality": "良品",
     "balanceRealm": "先天期",
-    "combat": { "spellPowerFlat": 14, "hitRateFlat": 2 },
+    "combat": {
+      "spellPowerFlat": 14,
+      "hitRateFlat": 2
+    },
     "growth": {},
-    "note": "先天期飞剑法器"
+    "note": "先天期飞剑法器",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2,
+      "spiritName": "袖剑"
+    }
   },
   {
     "id": "E028",
@@ -303,9 +504,16 @@
     "category": "衣服",
     "quality": "良品",
     "balanceRealm": "炼气期",
-    "combat": { "hpFlat": 42, "defensePercent": 0.095 },
+    "combat": {
+      "hpFlat": 42,
+      "defensePercent": 0.095
+    },
     "growth": {},
-    "note": "炼气期法衣"
+    "note": "炼气期法衣",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E029",
@@ -314,9 +522,16 @@
     "category": "防御符",
     "quality": "良品",
     "balanceRealm": "炼气期",
-    "combat": { "defenseFlat": 12, "spiritShieldFlat": 31 },
+    "combat": {
+      "defenseFlat": 12,
+      "spiritShieldFlat": 31
+    },
     "growth": {},
-    "note": "炼气期防御符"
+    "note": "炼气期防御符",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E030",
@@ -325,9 +540,17 @@
     "category": "辅助符",
     "quality": "凡品",
     "balanceRealm": "炼气期",
-    "combat": { "innerPowerFlat": 8 },
-    "growth": { "opportunityBonus": 5 },
-    "note": "炼气期辅助符"
+    "combat": {
+      "innerPowerFlat": 8
+    },
+    "growth": {
+      "opportunityBonus": 5
+    },
+    "note": "炼气期辅助符",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   },
   {
     "id": "E031",
@@ -336,9 +559,18 @@
     "category": "矛",
     "quality": "珍品",
     "balanceRealm": "筑基期",
-    "combat": { "attackFlat": 31, "attackPercent": 0.12 },
+    "combat": {
+      "attackFlat": 38,
+      "attackPercent": 0.15
+    },
     "growth": {},
-    "note": "筑基期长兵"
+    "note": "筑基期长兵",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "玄铁",
+      "spiritSkillHint": "玄铁沉重如山的战意，每一刺都带着千钧之力"
+    }
   },
   {
     "id": "E032",
@@ -347,9 +579,18 @@
     "category": "衣甲",
     "quality": "珍品",
     "balanceRealm": "筑基期",
-    "combat": { "hpFlat": 69, "defensePercent": 0.12 },
+    "combat": {
+      "hpFlat": 85,
+      "defensePercent": 0.15
+    },
     "growth": {},
-    "note": "筑基期衣甲"
+    "note": "筑基期衣甲",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "丝语",
+      "spiritSkillHint": "灵蚕丝的柔韧记忆，受击时如丝般化解力道"
+    }
   },
   {
     "id": "E033",
@@ -358,9 +599,18 @@
     "category": "阵盘",
     "quality": "珍品",
     "balanceRealm": "筑基期",
-    "combat": { "spellPowerFlat": 34, "spiritualPowerFlat": 16 },
+    "combat": {
+      "spellPowerFlat": 38,
+      "spiritualPowerFlat": 18
+    },
     "growth": {},
-    "note": "筑基期阵盘"
+    "note": "筑基期阵盘",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "两仪",
+      "spiritSkillHint": "两仪阵盘的玄妙，天地之力在阵中流转"
+    }
   },
   {
     "id": "E034",
@@ -369,9 +619,16 @@
     "category": "攻击符",
     "quality": "珍品",
     "balanceRealm": "筑基期",
-    "combat": { "spellPowerFlat": 29, "critRateFlat": 3 },
+    "combat": {
+      "spellPowerFlat": 29,
+      "critRateFlat": 3
+    },
     "growth": {},
-    "note": "筑基期攻击符，强于炼气火鸦符"
+    "note": "筑基期攻击符，强于炼气火鸦符",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
   },
   {
     "id": "E035",
@@ -381,8 +638,14 @@
     "quality": "良品",
     "balanceRealm": "筑基期",
     "combat": {},
-    "growth": { "bagCapacityFlat": 18 },
-    "note": "筑基期储物袋"
+    "growth": {
+      "bagCapacityFlat": 18
+    },
+    "note": "筑基期储物袋",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
   },
   {
     "id": "E036",
@@ -391,9 +654,19 @@
     "category": "衣甲",
     "quality": "绝品",
     "balanceRealm": "金丹期",
-    "combat": { "hpPercent": 0.18, "defenseFlat": 19, "spiritShieldFlat": 62 },
+    "combat": {
+      "hpPercent": 0.18,
+      "defenseFlat": 19,
+      "spiritShieldFlat": 62
+    },
     "growth": {},
-    "note": "金丹期守门法袍"
+    "note": "金丹期守门法袍",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 4,
+      "spiritName": "金罡",
+      "spiritSkillHint": "金罡法袍的正气，穿戴者如披金光"
+    }
   },
   {
     "id": "E037",
@@ -402,8 +675,718 @@
     "category": "剑",
     "quality": "珍品",
     "balanceRealm": "金丹期",
-    "combat": { "attackFlat": 37, "attackPercent": 0.14, "critRateFlat": 3 },
+    "combat": {
+      "attackFlat": 37,
+      "attackPercent": 0.14,
+      "critRateFlat": 3
+    },
     "growth": {},
-    "note": "金丹期守门武器"
+    "note": "金丹期守门武器",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "赤霄",
+      "spiritSkillHint": "赤霄剑的烈焰记忆，出鞘时剑气如虹"
+    }
+  },
+  {
+    "id": "E038",
+    "name": "草编行履",
+    "slot": "防具",
+    "category": "靴子",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "speedFlat": 2,
+      "dodgeRateFlat": 1
+    },
+    "growth": {},
+    "note": "凡俗期补齐脚部栏，提供轻微闪避与行动感",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E039",
+    "name": "破旧斗笠",
+    "slot": "防具",
+    "category": "头巾",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "hpFlat": 4,
+      "defenseFlat": 1
+    },
+    "growth": {},
+    "note": "凡俗期头部防护，避免入门阶段装备栏过空",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E040",
+    "name": "粗布行囊",
+    "slot": "储物袋",
+    "category": "储物袋",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {},
+    "growth": {
+      "bagCapacityFlat": 4
+    },
+    "note": "凡俗期背包容量来源，早期外出采买与掉落承接",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E041",
+    "name": "铜钱护符",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "staminaFlat": 8
+    },
+    "growth": {
+      "opportunityBonus": 2
+    },
+    "note": "凡俗期第二佩饰，偏资源与探索收益",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E042",
+    "name": "铁骨兜鍪",
+    "slot": "防具",
+    "category": "帽子",
+    "quality": "良品",
+    "balanceRealm": "宗师期",
+    "combat": {
+      "hpFlat": 24,
+      "defenseFlat": 3
+    },
+    "growth": {},
+    "note": "宗师期头部防具，承接江湖头巾",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E043",
+    "name": "玄纹腰佩",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "珍品",
+    "balanceRealm": "宗师期",
+    "combat": {
+      "hpPercent": 0.04,
+      "innerPowerFlat": 18
+    },
+    "growth": {},
+    "note": "宗师期佩饰，强调内力与韧性",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E044",
+    "name": "百炼臂环",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "良品",
+    "balanceRealm": "宗师期",
+    "combat": {
+      "attackFlat": 6,
+      "defenseFlat": 2
+    },
+    "growth": {},
+    "note": "宗师期佩饰，补近战攻防",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E045",
+    "name": "机关木卫",
+    "slot": "傀儡",
+    "category": "战斗傀儡",
+    "quality": "良品",
+    "balanceRealm": "宗师期",
+    "combat": {
+      "attackFlat": 8,
+      "defenseFlat": 8
+    },
+    "growth": {},
+    "note": "宗师期背包战斗单位，替换江湖木傀儡",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E046",
+    "name": "先天软甲",
+    "slot": "防具",
+    "category": "衣甲",
+    "quality": "珍品",
+    "balanceRealm": "先天期",
+    "combat": {
+      "hpFlat": 38,
+      "defensePercent": 0.08,
+      "spiritShieldFlat": 18
+    },
+    "growth": {},
+    "note": "先天期身体防具，体现真气护体",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E047",
+    "name": "踏云履",
+    "slot": "防具",
+    "category": "靴子",
+    "quality": "良品",
+    "balanceRealm": "先天期",
+    "combat": {
+      "speedPercent": 0.13,
+      "dodgeRateFlat": 4
+    },
+    "growth": {},
+    "note": "先天期脚部防具，强化身法定位",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E048",
+    "name": "凝气戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "珍品",
+    "balanceRealm": "先天期",
+    "combat": {
+      "spiritualPowerFlat": 10,
+      "spiritShieldFlat": 14
+    },
+    "growth": {},
+    "note": "先天期佩饰，作为由武入仙的灵力入口",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E049",
+    "name": "聚元葫芦",
+    "slot": "特殊物",
+    "category": "机缘物",
+    "quality": "珍品",
+    "balanceRealm": "先天期",
+    "combat": {
+      "innerPowerFlat": 20
+    },
+    "growth": {
+      "opportunityBonus": 4,
+      "resourceCostMultiplier": 0.95
+    },
+    "note": "先天期特殊物，降低入炼气前的资源压力",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E050",
+    "name": "青锋法剑",
+    "slot": "武器",
+    "category": "剑",
+    "quality": "珍品",
+    "balanceRealm": "炼气期",
+    "combat": {
+      "attackFlat": 24,
+      "spellPowerFlat": 18,
+      "hitRateFlat": 2
+    },
+    "growth": {},
+    "note": "炼气期法剑，替换先天佩剑",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "青锋"
+    }
+  },
+  {
+    "id": "E051",
+    "name": "玄玉戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "良品",
+    "balanceRealm": "炼气期",
+    "combat": {
+      "hpFlat": 20,
+      "spiritualPowerFlat": 16
+    },
+    "growth": {},
+    "note": "炼气期佩饰，补生命与灵力",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E052",
+    "name": "清心玉佩",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "良品",
+    "balanceRealm": "炼气期",
+    "combat": {
+      "divineSenseFlat": 8,
+      "dodgeRateFlat": 2
+    },
+    "growth": {
+      "sideEffectRisk": -2
+    },
+    "note": "炼气期佩饰，降低修炼副作用并补神识",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E053",
+    "name": "聚灵小幡",
+    "slot": "法器",
+    "category": "法宝",
+    "quality": "珍品",
+    "balanceRealm": "炼气期",
+    "combat": {
+      "spellPowerFlat": 20,
+      "spiritualPowerPercent": 0.08
+    },
+    "growth": {},
+    "note": "炼气期第二法器，配合护身符形成攻防双法器",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3,
+      "spiritName": "聚灵"
+    }
+  },
+  {
+    "id": "E054",
+    "name": "灵木傀儡",
+    "slot": "傀儡",
+    "category": "战斗傀儡",
+    "quality": "良品",
+    "balanceRealm": "炼气期",
+    "combat": {
+      "defenseFlat": 10,
+      "spiritualPowerFlat": 8
+    },
+    "growth": {},
+    "note": "炼气期傀儡，替换机关木卫",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E055",
+    "name": "玄冰冠",
+    "slot": "防具",
+    "category": "帽子",
+    "quality": "珍品",
+    "balanceRealm": "筑基期",
+    "combat": {
+      "spiritShieldFlat": 40,
+      "divineSenseFlat": 10
+    },
+    "growth": {},
+    "note": "筑基期头部防具，偏护盾与神识",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E056",
+    "name": "御风灵靴",
+    "slot": "防具",
+    "category": "靴子",
+    "quality": "珍品",
+    "balanceRealm": "筑基期",
+    "combat": {
+      "speedPercent": 0.16,
+      "dodgeRateFlat": 5,
+      "spiritShieldFlat": 20
+    },
+    "growth": {},
+    "note": "筑基期脚部防具，保证高阶身法成长",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E057",
+    "name": "定星戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "珍品",
+    "balanceRealm": "筑基期",
+    "combat": {
+      "spiritualPowerFlat": 28,
+      "spellPowerFlat": 10
+    },
+    "growth": {},
+    "note": "筑基期佩饰，补灵力与术法",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E058",
+    "name": "玄霜玉佩",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "珍品",
+    "balanceRealm": "筑基期",
+    "combat": {
+      "hpPercent": 0.08,
+      "divineSenseFlat": 12
+    },
+    "growth": {},
+    "note": "筑基期佩饰，提供生存与神识",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E059",
+    "name": "山河符",
+    "slot": "符箓",
+    "category": "防御符",
+    "quality": "珍品",
+    "balanceRealm": "筑基期",
+    "combat": {
+      "defenseFlat": 18,
+      "spiritShieldFlat": 50
+    },
+    "growth": {},
+    "note": "筑基期防御符，作为雷火符的生存向替代",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E060",
+    "name": "金霞冠",
+    "slot": "防具",
+    "category": "帽子",
+    "quality": "绝品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "hpFlat": 80,
+      "spiritShieldFlat": 80,
+      "divineSenseFlat": 20
+    },
+    "growth": {},
+    "note": "金丹期头部防具，补齐金丹高阶套装",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 4
+    }
+  },
+  {
+    "id": "E061",
+    "name": "踏星履",
+    "slot": "防具",
+    "category": "靴子",
+    "quality": "珍品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "speedPercent": 0.18,
+      "dodgeRateFlat": 6,
+      "spiritualPowerFlat": 18
+    },
+    "growth": {},
+    "note": "金丹期脚部防具，强化机动与灵力",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E062",
+    "name": "赤金丹戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "珍品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "attackPercent": 0.06,
+      "spellPowerFlat": 28
+    },
+    "growth": {},
+    "note": "金丹期攻击佩饰，连接武攻与术法",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E063",
+    "name": "太乙玉佩",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "绝品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "hpPercent": 0.1,
+      "spiritualPowerPercent": 0.08
+    },
+    "growth": {},
+    "note": "金丹期核心佩饰，提供高阶生存与灵力",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 4
+    }
+  },
+  {
+    "id": "E064",
+    "name": "星河阵盘",
+    "slot": "法器",
+    "category": "阵盘",
+    "quality": "绝品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "spellPowerFlat": 48,
+      "spiritualPowerFlat": 28,
+      "divineSenseFlat": 24
+    },
+    "growth": {},
+    "note": "金丹期主法器，形成阵法输出核心",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 4,
+      "spiritName": "星河",
+      "spiritSkillHint": "星河阵盘的浩瀚，布阵时如星辰运转"
+    }
+  },
+  {
+    "id": "E065",
+    "name": "九曜灵符",
+    "slot": "符箓",
+    "category": "攻击符",
+    "quality": "珍品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "spellPowerFlat": 45,
+      "critRateFlat": 4
+    },
+    "growth": {},
+    "note": "金丹期攻击符，替换筑基雷火符",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E066",
+    "name": "紫府乾坤袋",
+    "slot": "储物袋",
+    "category": "储物袋",
+    "quality": "良品",
+    "balanceRealm": "金丹期",
+    "combat": {},
+    "growth": {
+      "bagCapacityFlat": 28,
+      "opportunityBonus": 4
+    },
+    "note": "金丹期储物袋，支撑高阶外物携带",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E067",
+    "name": "金丹护心镜",
+    "slot": "法器",
+    "category": "护符",
+    "quality": "珍品",
+    "balanceRealm": "金丹期",
+    "combat": {
+      "spiritShieldFlat": 95,
+      "defensePercent": 0.12
+    },
+    "growth": {},
+    "note": "金丹期防御法器，与星河阵盘形成一攻一守",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 3
+    }
+  },
+  {
+    "id": "E068",
+    "name": "青钢软甲",
+    "slot": "防具",
+    "category": "衣甲",
+    "quality": "良品",
+    "balanceRealm": "江湖期",
+    "combat": {
+      "hpFlat": 20,
+      "defenseFlat": 3
+    },
+    "growth": {},
+    "note": "江湖期身体防具，解决江湖后段仍穿粗布衣的问题",
+    "ascension": {
+      "canRefine": true,
+      "maxRefineTier": 2
+    }
+  },
+  {
+    "id": "E069",
+    "name": "缚虎符",
+    "slot": "符箓",
+    "category": "攻击符",
+    "quality": "凡品",
+    "balanceRealm": "江湖期",
+    "combat": {
+      "attackFlat": 6,
+      "hitRateFlat": 2,
+      "critRateFlat": 1
+    },
+    "growth": {},
+    "note": "江湖期一次性进攻外物，补跨宗师守门的爆发手段",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E070",
+    "name": "黄铜护符",
+    "slot": "法器",
+    "category": "护符",
+    "quality": "凡品",
+    "balanceRealm": "江湖期",
+    "combat": {
+      "spiritShieldFlat": 18,
+      "defenseFlat": 3
+    },
+    "growth": {},
+    "note": "江湖期低阶法器，为后续宗师法器做系统铺垫",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E071",
+    "name": "赤绳戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "凡品",
+    "balanceRealm": "江湖期",
+    "combat": {
+      "attackFlat": 4,
+      "hpFlat": 8
+    },
+    "growth": {},
+    "note": "江湖期第 4 佩饰，补齐佩饰栏并提供轻量攻防",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E072",
+    "name": "祖传铜镜",
+    "slot": "法器",
+    "category": "护符",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "spiritShieldFlat": 16,
+      "defenseFlat": 2
+    },
+    "growth": {},
+    "note": "凡俗期低阶护身法器，作为入江湖前的安全垫",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0,
+      "spiritName": "铜镜"
+    }
+  },
+  {
+    "id": "E073",
+    "name": "黄纸护身符",
+    "slot": "符箓",
+    "category": "防御符",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "hpFlat": 10,
+      "defenseFlat": 2
+    },
+    "growth": {},
+    "note": "凡俗期一次性护身符，补早期守门生存",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E074",
+    "name": "牛骨戒",
+    "slot": "饰品",
+    "category": "戒指",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "attackFlat": 3,
+      "hpFlat": 6
+    },
+    "growth": {},
+    "note": "凡俗期第三佩饰，补轻量攻防",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
+  },
+  {
+    "id": "E075",
+    "name": "桃木护牌",
+    "slot": "饰品",
+    "category": "玉佩",
+    "quality": "凡品",
+    "balanceRealm": "凡俗期",
+    "combat": {
+      "staminaFlat": 10,
+      "spiritShieldFlat": 8
+    },
+    "growth": {},
+    "note": "凡俗期第四佩饰，补体力与护盾",
+    "ascension": {
+      "canRefine": false,
+      "maxRefineTier": 0
+    }
   }
 ]

@@ -9,6 +9,7 @@ import {
   normalizeEffectMap,
   normalizeEquipmentCategory,
   normalizeEquipmentSlot,
+  normalizeStringList,
   realmNames,
   type BalanceRealmBandId,
   type EquipmentSlot,
@@ -35,11 +36,17 @@ export async function getManageData() {
       return {
         id: row.id,
         externalId: row.externalId,
+        baseId: row.baseId?.trim() || row.externalId,
         name: row.name,
         slot,
         category: normalizeEquipmentCategory(slot, row.category),
         quality: migrateLegacyItemQuality(row.quality),
         balanceRealm: migrateLegacyBalanceRealm(row.balanceRealm),
+        dropTags: normalizeStringList(row.dropTags),
+        forgeTags: normalizeStringList(row.forgeTags),
+        upgradeTier: row.upgradeTier ?? 0,
+        affixSlots: row.affixSlots ?? 0,
+        affixTags: normalizeStringList(row.affixTags),
         note: row.note,
         combat: normalizeEffectMap(row.combat),
         growth: normalizeEffectMap(row.growth),
@@ -51,7 +58,6 @@ export async function getManageData() {
       name: row.name,
       type: row.type,
       rank: row.rank,
-      quality: migrateLegacyItemQuality(row.quality),
       maxRealm: migrateLegacyMaxRealm(row.maxRealm),
       proficiency: row.proficiency,
       note: row.note,
@@ -69,6 +75,12 @@ export async function updateEquipment(
     category?: string;
     quality?: ItemQualityId;
     balanceRealm?: BalanceRealmBandId;
+    baseId?: string;
+    dropTags?: string[];
+    forgeTags?: string[];
+    upgradeTier?: number;
+    affixSlots?: number;
+    affixTags?: string[];
     note?: string;
     combat?: Record<string, number>;
     growth?: Record<string, number>;
@@ -93,6 +105,12 @@ export async function updateEquipment(
       balanceRealm: data.balanceRealm
         ? migrateLegacyBalanceRealm(data.balanceRealm)
         : undefined,
+      baseId: data.baseId === undefined ? undefined : data.baseId.trim() || row.externalId,
+      dropTags: data.dropTags ? normalizeStringList(data.dropTags) : undefined,
+      forgeTags: data.forgeTags ? normalizeStringList(data.forgeTags) : undefined,
+      upgradeTier: data.upgradeTier,
+      affixSlots: data.affixSlots,
+      affixTags: data.affixTags ? normalizeStringList(data.affixTags) : undefined,
       note: data.note,
       combat: data.combat ?? undefined,
       growth: data.growth ?? undefined,
@@ -102,16 +120,37 @@ export async function updateEquipment(
 }
 
 export async function addEquipment() {
+  return addEquipmentWithDefaults();
+}
+
+export async function addEquipmentWithDefaults(data: {
+  name?: string;
+  slot?: EquipmentSlot;
+  category?: string;
+  quality?: ItemQualityId;
+  balanceRealm?: BalanceRealmBandId;
+} = {}) {
   const count = await prisma.equipment.count();
   const externalId = `EC${String(count + 1).padStart(3, "0")}`;
+  const slot = normalizeEquipmentSlot(data.slot ?? "其他");
+  const category = normalizeEquipmentCategory(slot, data.category ?? "其他");
+  const quality = migrateLegacyItemQuality(data.quality ?? "凡品");
+  const balanceRealm = migrateLegacyBalanceRealm(data.balanceRealm ?? "凡俗期");
+  const name = data.name?.trim() || (category === "其他" ? "新装备" : `新${category}`);
   await prisma.equipment.create({
     data: {
       externalId,
-      name: "新装备",
-      slot: "其他",
-      category: "其他",
-      quality: "凡品",
-      balanceRealm: "凡俗期",
+      baseId: externalId,
+      name,
+      slot,
+      category,
+      quality,
+      balanceRealm,
+      dropTags: [],
+      forgeTags: [],
+      upgradeTier: 0,
+      affixSlots: 0,
+      affixTags: [],
       enabled: false,
       combat: { attackFlat: 1 },
       growth: {},
@@ -145,7 +184,6 @@ export async function updateManual(
     name?: string;
     type?: string;
     rank?: string;
-    quality?: ItemQualityId;
     maxRealm?: RealmName;
     proficiency?: string;
     note?: string;
@@ -159,7 +197,6 @@ export async function updateManual(
       name: data.name,
       type: data.type,
       rank: data.rank,
-      quality: data.quality ? migrateLegacyItemQuality(data.quality) : undefined,
       maxRealm: data.maxRealm ? migrateLegacyMaxRealm(data.maxRealm) : undefined,
       proficiency: data.proficiency,
       note: data.note,
@@ -179,7 +216,6 @@ export async function addManual() {
       name: "新功法",
       type: "功法",
       rank: "凡阶",
-      quality: "凡品",
       maxRealm: "普通凡人",
       enabled: false,
       level: 1,

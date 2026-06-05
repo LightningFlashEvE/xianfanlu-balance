@@ -4,10 +4,13 @@
     "name": "粗浅导引术",
     "type": "内功",
     "rank": "凡阶",
-    "quality": "凡品",
     "maxRealm": "普通凡人",
-    "combat": { "hpFlat": 6 },
-    "growth": { "cultivationSpeedMultiplier": 1.04 },
+    "combat": {
+      "hpFlat": 6
+    },
+    "growth": {
+      "cultivationSpeedMultiplier": 1.04
+    },
     "note": "凡人期可修，补足 milestone 功法栏"
   },
   {
@@ -15,10 +18,11 @@
     "name": "基础吐纳术",
     "type": "内功",
     "rank": "凡阶",
-    "quality": "凡品",
     "maxRealm": "江湖三流",
     "combat": {},
-    "growth": { "hpGrowthMultiplier": 1.05 },
+    "growth": {
+      "hpGrowthMultiplier": 1.05
+    },
     "note": "HP成长 +5%，体力恢复 +5%"
   },
   {
@@ -26,9 +30,11 @@
     "name": "基础剑法",
     "type": "剑法",
     "rank": "凡阶",
-    "quality": "凡品",
     "maxRealm": "江湖三流",
-    "combat": { "attackPercent": 0.08, "hitRateFlat": 2 },
+    "combat": {
+      "attackPercent": 0.08,
+      "hitRateFlat": 2
+    },
     "growth": {},
     "note": "剑类伤害 +8%，命中 +2%"
   },
@@ -37,10 +43,13 @@
     "name": "小周天功",
     "type": "内功",
     "rank": "江湖",
-    "quality": "凡品",
     "maxRealm": "江湖一流",
-    "combat": { "innerPowerFlat": 30 },
-    "growth": { "hpGrowthMultiplier": 1.08 },
+    "combat": {
+      "innerPowerFlat": 30
+    },
+    "growth": {
+      "hpGrowthMultiplier": 1.08
+    },
     "note": "HP成长 +8%，内力上限 +30"
   },
   {
@@ -48,9 +57,11 @@
     "name": "黑虎刀法",
     "type": "刀法",
     "rank": "江湖",
-    "quality": "凡品",
     "maxRealm": "江湖二流",
-    "combat": { "attackPercent": 0.12, "critRateFlat": 2 },
+    "combat": {
+      "attackPercent": 0.12,
+      "critRateFlat": 2
+    },
     "growth": {},
     "note": "刀伤 +12%，暴击 +2%"
   },
@@ -59,9 +70,11 @@
     "name": "青云步",
     "type": "轻功",
     "rank": "江湖",
-    "quality": "凡品",
     "maxRealm": "江湖二流",
-    "combat": { "speedPercent": 0.05, "dodgeRateFlat": 5 },
+    "combat": {
+      "speedPercent": 0.05,
+      "dodgeRateFlat": 5
+    },
     "growth": {},
     "note": "闪避 +5%，移动速度 +5%"
   },
@@ -70,10 +83,14 @@
     "name": "混元功",
     "type": "内功",
     "rank": "江湖",
-    "quality": "珍品",
     "maxRealm": "武道宗师",
-    "combat": { "hpPercent": 0.06, "innerPowerFlat": 80 },
-    "growth": { "hpGrowthMultiplier": 1.15 },
+    "combat": {
+      "hpPercent": 0.06,
+      "innerPowerFlat": 80
+    },
+    "growth": {
+      "hpGrowthMultiplier": 1.15
+    },
     "note": "HP成长 +15%，内力恢复 +15%"
   },
   {
@@ -81,10 +98,15 @@
     "name": "天河剑经残篇",
     "type": "剑法",
     "rank": "江湖 / 先天",
-    "quality": "绝品",
     "maxRealm": "先天武者",
-    "combat": { "attackPercent": 0.35, "spellPowerFlat": 12 },
-    "growth": { "resourceCostMultiplier": 1.25, "sideEffectRisk": 6 },
+    "combat": {
+      "attackPercent": 0.35,
+      "spellPowerFlat": 12
+    },
+    "growth": {
+      "resourceCostMultiplier": 1.25,
+      "sideEffectRisk": 6
+    },
     "note": "剑伤 +35%，可修出剑气，但残篇卡上限"
   },
   {
@@ -92,9 +114,11 @@
     "name": "先天一气诀",
     "type": "过渡功法",
     "rank": "先天",
-    "quality": "珍品",
     "maxRealm": "炼气初期",
-    "combat": { "spiritualPowerFlat": 12, "divineSenseFlat": 4 },
+    "combat": {
+      "spiritualPowerFlat": 12,
+      "divineSenseFlat": 4
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.08,
       "breakthroughBonus": 10,
@@ -107,9 +131,11 @@
     "name": "青元残经",
     "type": "修仙功法",
     "rank": "炼气",
-    "quality": "绝品",
     "maxRealm": "炼气初期",
-    "combat": { "spiritualPowerFlat": 25, "spellPowerFlat": 8 },
+    "combat": {
+      "spiritualPowerFlat": 25,
+      "spellPowerFlat": 8
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.3,
       "spiritualGrowthMultiplier": 1.2,
@@ -124,10 +150,14 @@
     "name": "五行炼气诀",
     "type": "修仙功法",
     "rank": "炼气",
-    "quality": "良品",
     "maxRealm": "炼气中期",
-    "combat": { "spiritualPowerFlat": 18 },
-    "growth": { "cultivationSpeedMultiplier": 1, "spiritualGrowthMultiplier": 1 },
+    "combat": {
+      "spiritualPowerFlat": 18
+    },
+    "growth": {
+      "cultivationSpeedMultiplier": 1,
+      "spiritualGrowthMultiplier": 1
+    },
     "note": "稳定修炼，适合杂灵根"
   },
   {
@@ -135,9 +165,11 @@
     "name": "长春功",
     "type": "修仙功法",
     "rank": "炼气",
-    "quality": "良品",
     "maxRealm": "炼气后期",
-    "combat": { "hpPercent": 0.08, "spiritualPowerFlat": 18 },
+    "combat": {
+      "hpPercent": 0.08,
+      "spiritualPowerFlat": 18
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.15,
       "hpGrowthMultiplier": 1.15,
@@ -150,10 +182,16 @@
     "name": "金刃诀",
     "type": "修仙功法",
     "rank": "炼气",
-    "quality": "良品",
     "maxRealm": "炼气后期",
-    "combat": { "attackPercent": 0.1, "spellPowerPercent": 0.2, "hitRateFlat": 2 },
-    "growth": { "cultivationSpeedMultiplier": 1.15, "spiritualGrowthMultiplier": 1.12 },
+    "combat": {
+      "attackPercent": 0.1,
+      "spellPowerPercent": 0.2,
+      "hitRateFlat": 2
+    },
+    "growth": {
+      "cultivationSpeedMultiplier": 1.15,
+      "spiritualGrowthMultiplier": 1.12
+    },
     "note": "金系法术 +20%，破甲 +10%"
   },
   {
@@ -161,9 +199,11 @@
     "name": "火云诀",
     "type": "修仙功法",
     "rank": "炼气",
-    "quality": "珍品",
     "maxRealm": "炼气后期",
-    "combat": { "spellPowerPercent": 0.25, "critRateFlat": 2 },
+    "combat": {
+      "spellPowerPercent": 0.25,
+      "critRateFlat": 2
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.35,
       "spiritualGrowthMultiplier": 1.35,
@@ -177,9 +217,12 @@
     "name": "青木长生诀",
     "type": "修仙功法",
     "rank": "筑基",
-    "quality": "珍品",
     "maxRealm": "筑基后期",
-    "combat": { "hpPercent": 0.18, "spiritualPowerFlat": 45, "spellPowerPercent": 0.12 },
+    "combat": {
+      "hpPercent": 0.18,
+      "spiritualPowerFlat": 45,
+      "spellPowerPercent": 0.12
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.35,
       "hpGrowthMultiplier": 1.2,
@@ -194,9 +237,12 @@
     "name": "紫阳真诀",
     "type": "修仙功法",
     "rank": "金丹",
-    "quality": "珍品",
     "maxRealm": "金丹后期",
-    "combat": { "attackPercent": 0.12, "spellPowerPercent": 0.35, "critRateFlat": 4 },
+    "combat": {
+      "attackPercent": 0.12,
+      "spellPowerPercent": 0.35,
+      "critRateFlat": 4
+    },
     "growth": {
       "cultivationSpeedMultiplier": 1.45,
       "spiritualGrowthMultiplier": 1.45,
@@ -205,5 +251,75 @@
       "sideEffectRisk": 10
     },
     "note": "火雷双修，爆发强，消耗极高"
+  },
+  {
+    "id": "M016",
+    "name": "抱元护体功",
+    "type": "内功",
+    "rank": "宗师",
+    "maxRealm": "武道宗师",
+    "combat": {
+      "hpPercent": 0.04,
+      "defensePercent": 0.04,
+      "innerPowerFlat": 40
+    },
+    "growth": {
+      "hpGrowthMultiplier": 1.08,
+      "breakthroughBonus": 4
+    },
+    "note": "宗师期护体内功，补齐由江湖入先天前的承伤短板"
+  },
+  {
+    "id": "M017",
+    "name": "先天凝神诀",
+    "type": "过渡功法",
+    "rank": "先天",
+    "maxRealm": "先天武者",
+    "combat": {
+      "spiritShieldFlat": 20,
+      "divineSenseFlat": 8
+    },
+    "growth": {
+      "breakthroughBonus": 6,
+      "divineSenseGrowthMultiplier": 1.08,
+      "resourceCostMultiplier": 1.08
+    },
+    "note": "先天期凝神过渡功法，用于稳定感气与入炼气"
+  },
+  {
+    "id": "M018",
+    "name": "玄元筑基法",
+    "type": "修仙功法",
+    "rank": "筑基",
+    "maxRealm": "筑基中期",
+    "combat": {
+      "spiritualPowerFlat": 32,
+      "spiritShieldFlat": 36
+    },
+    "growth": {
+      "cultivationSpeedMultiplier": 1.18,
+      "spiritualGrowthMultiplier": 1.16,
+      "resourceCostMultiplier": 1.25
+    },
+    "note": "筑基期稳态功法，补筑基初中期修炼和护盾曲线"
+  },
+  {
+    "id": "M019",
+    "name": "太乙金丹篇",
+    "type": "修仙功法",
+    "rank": "金丹",
+    "maxRealm": "金丹中期",
+    "combat": {
+      "spiritualPowerPercent": 0.1,
+      "divineSensePercent": 0.08,
+      "spellPowerFlat": 32
+    },
+    "growth": {
+      "cultivationSpeedMultiplier": 1.25,
+      "breakthroughBonus": 6,
+      "resourceCostMultiplier": 1.55,
+      "sideEffectRisk": 6
+    },
+    "note": "金丹期守一功法，偏神识和灵力结构，避免单纯堆爆发"
   }
 ]

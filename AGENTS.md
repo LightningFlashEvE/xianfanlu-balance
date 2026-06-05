@@ -9,6 +9,7 @@
 | `packages/database` | Prisma schema、seed、client |
 | `packages/export-game` | CLI → Unity JSON，复用 `buildBalanceExport` |
 | `docs/BALANCE.md` | 数值调参、平衡报告、MiniMax、数据流（给人看） |
+| `docs/GAME_SETTINGS.md` | 功法、物品、守门/BOSS 等系统设定口径 |
 
 ## 修改顺序（防字段漂移）
 
@@ -27,6 +28,7 @@
 
 - 稳定 ID：`E001`、`M001`
 - 战斗键名与 core Zod 一致（`attackFlat`，非 `attack_pct`）
+- 功法不设物品品阶；品阶只属于装备/外物，并服务掉落、锻造、升品、词条成长
 - 新 UI：`apps/web/src/components/features/<name>/`
 
 ## 常用命令
@@ -35,6 +37,7 @@
 pnpm install
 pnpm db:push && pnpm db:seed
 pnpm dev
+pnpm dev:fresh
 pnpm export:game
 ```
 
@@ -57,7 +60,9 @@ pnpm export:game
 - 破境守门目标 38–72%；章节 BOSS 25–55%（`CHAPTER_BOSS_HIGH = 0.55`）。
 - 超时：`BALANCE_REPORT_REQUEST_TIMEOUT_MS` 默认 300000。
 - 评审：`json_object` + `reasoning_split`，默认开思考；`BALANCE_REPORT_DISABLE_THINKING=1` 仅解析失败后重试。
-- 养成/对手 LLM 代理 **未实现**。
+- AI 评审由 MiniMax 完成（`chatMiniMaxForJudge`），输出含 `grade`/`summary`/`issues`/`recommendations`/`heroAdjustments`/`equipmentAdjustments`。
+- 对战模拟使用确定性 bot（`milestone_standard` / `sandbox_current` / `no_manuals`），**非 LLM**。
+- 养成/对手 LLM 代理对战 **未实现**。
 - 无「推荐倍率」；境界以 `realms.initial.json` + seed 为准。
 
 ## 调数值时只改这些（勿动公式）
@@ -65,7 +70,7 @@ pnpm export:game
 - `realms.initial.json`、`equipment.library.json`、`manuals.library.json`
 - `hero.defaults.json`、`meta.json`
 - `sandbox-enemy-presets.ts`（含 `chapterBossTemplateScale`）
-- `enemyTemplateScale` 默认 0.88：`schema.prisma` + `seed-data.ts` + `state.ts` 回退
+- 沙盘 `enemyTemplateScale` 默认 0.88：`schema.prisma` + `seed-data.ts` + `state.ts` 回退；破境/BOSS 模板改 `sandbox-enemy-presets.ts`
 
 改 JSON 后提醒用户 **`pnpm db:seed`** 或评估器 **重置**。
 

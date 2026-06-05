@@ -3,6 +3,7 @@ import {
   migrateLegacyBalanceRealm,
   migrateLegacyItemQuality,
   migrateLegacyMaxRealm,
+  normalizeStringList,
   normalizeEquipmentCategory,
   normalizeEquipmentSlot,
 } from "@xianfanlu/core";
@@ -22,18 +23,27 @@ export async function seedDatabase(prisma: PrismaClient) {
   });
 
   await prisma.equipment.createMany({
-    data: data.equipmentLibrary.map((item, index) => ({
-      externalId: item.id,
-      name: item.name,
-      slot: normalizeEquipmentSlot(item.slot),
-      category: normalizeEquipmentCategory(item.slot, item.category),
-      quality: migrateLegacyItemQuality(item.quality),
-      balanceRealm: migrateLegacyBalanceRealm(item.balanceRealm ?? ""),
-      combat: item.combat ?? {},
-      growth: item.growth ?? {},
-      note: item.note ?? "",
-      enabled: index < 3,
-    })),
+    data: data.equipmentLibrary.map((item, index) => {
+      const slot = normalizeEquipmentSlot(item.slot);
+      return {
+        externalId: item.id,
+        baseId: item.baseId ?? item.id,
+        name: item.name,
+        slot,
+        category: normalizeEquipmentCategory(slot, item.category),
+        quality: migrateLegacyItemQuality(item.quality),
+        balanceRealm: migrateLegacyBalanceRealm(item.balanceRealm ?? ""),
+        dropTags: normalizeStringList(item.dropTags),
+        forgeTags: normalizeStringList(item.forgeTags),
+        upgradeTier: item.upgradeTier ?? 0,
+        affixSlots: item.affixSlots ?? 0,
+        affixTags: normalizeStringList(item.affixTags),
+        combat: item.combat ?? {},
+        growth: item.growth ?? {},
+        note: item.note ?? "",
+        enabled: index < 3,
+      };
+    }),
   });
 
   await prisma.manual.createMany({
@@ -42,7 +52,6 @@ export async function seedDatabase(prisma: PrismaClient) {
       name: item.name,
       type: item.type,
       rank: item.rank,
-      quality: migrateLegacyItemQuality(item.quality),
       maxRealm: migrateLegacyMaxRealm(item.maxRealm),
       combat: item.combat ?? {},
       growth: item.growth ?? {},

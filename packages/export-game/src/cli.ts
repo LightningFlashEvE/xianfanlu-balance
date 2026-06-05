@@ -8,6 +8,7 @@ import {
   migrateLegacyMaxRealm,
   normalizeEquipmentCategory,
   normalizeEquipmentSlot,
+  normalizeStringList,
 } from "@xianfanlu/core";
 import { prisma } from "@xianfanlu/database";
 
@@ -26,23 +27,28 @@ async function main() {
     equipment: equipment.map((e) => {
       const slot = normalizeEquipmentSlot(e.slot);
       return {
-      id: e.externalId,
-      name: e.name,
-      slot,
-      category: normalizeEquipmentCategory(slot, e.category),
-      quality: migrateLegacyItemQuality(e.quality),
-      balanceRealm: migrateLegacyBalanceRealm(e.balanceRealm),
-      combat: (e.combat as Record<string, number>) ?? {},
-      growth: (e.growth as Record<string, number>) ?? {},
-      note: e.note,
-    };
+        id: e.externalId,
+        baseId: e.baseId?.trim() || e.externalId,
+        name: e.name,
+        slot,
+        category: normalizeEquipmentCategory(slot, e.category),
+        quality: migrateLegacyItemQuality(e.quality),
+        balanceRealm: migrateLegacyBalanceRealm(e.balanceRealm),
+        dropTags: normalizeStringList(e.dropTags),
+        forgeTags: normalizeStringList(e.forgeTags),
+        upgradeTier: e.upgradeTier ?? 0,
+        affixSlots: e.affixSlots ?? 0,
+        affixTags: normalizeStringList(e.affixTags),
+        combat: (e.combat as Record<string, number>) ?? {},
+        growth: (e.growth as Record<string, number>) ?? {},
+        note: e.note,
+      };
     }),
     manuals: manuals.map((m) => ({
       id: m.externalId,
       name: m.name,
       type: m.type,
       rank: m.rank,
-      quality: migrateLegacyItemQuality(m.quality),
       maxRealm: migrateLegacyMaxRealm(m.maxRealm),
       combat: (m.combat as Record<string, number>) ?? {},
       growth: (m.growth as Record<string, number>) ?? {},

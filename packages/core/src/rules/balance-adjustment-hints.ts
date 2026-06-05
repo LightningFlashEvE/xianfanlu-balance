@@ -32,17 +32,13 @@ function priorityForGateWin(win: number): "P0" | "P1" | "P2" {
 
 function suggestHeroBump(win: number, realm: string, nextRealm: string): BalanceAiHeroAdjustment {
   const gapPp = Math.round((NEXT_GATE_LOW - win) * 100);
-  const isEarly = ["普通凡人", "江湖三流", "江湖二流", "江湖一流"].includes(realm);
-  const field = isEarly ? "attack / hp（hero.defaults.json stats）" : "combatMultiplier（HeroConfig）";
-  const pct = Math.min(25, Math.max(8, Math.round(gapPp * 0.6)));
+  const scaleReduction = Math.min(12, Math.max(4, Math.round(gapPp * 0.3)));
   return {
     priority: priorityForGateWin(win),
-    target: isEarly ? "packages/core/src/data/hero.defaults.json" : "HeroConfig / hero.defaults",
-    field,
-    currentHint: `combatMultiplier=${isEarly ? "见 meta" : "当前配置"}`,
-    suggestion: isEarly
-      ? `基础 attack、hp 上调约 ${pct}%（或 aptitude.cultivationSpeed +5~10），抬升 ${realm} 标准养成战力`
-      : `combatMultiplier 上调约 ${Math.max(5, Math.round(pct / 2))}%（如 1.2→${(1.2 * (1 + pct / 100)).toFixed(2)}），优先于继续压低 ${nextRealm} 倍率`,
+    target: "sandbox-enemy-presets.ts",
+    field: "breakthroughGateTemplateScale",
+    currentHint: `当前破境守门 enemy scale 偏高，${realm}→${nextRealm} 胜率仅 ${(win * 100).toFixed(1)}%`,
+    suggestion: `降低 ${realm} 对应 band 的 breakthroughGateTemplateScale 约 ${scaleReduction}%（如 0.86→${(0.86 * (1 - scaleReduction / 100)).toFixed(2)}），直接削弱守门 enemy；或小幅上调 combatMultiplier 约 ${Math.min(6, Math.round(gapPp * 0.15))}%`,
     affectedRealms: [realm, nextRealm],
     evidence: `${realm}→${nextRealm} 破境胜率 ${(win * 100).toFixed(1)}%，低于 38% 约 ${gapPp}pp`,
   };

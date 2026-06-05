@@ -10,7 +10,7 @@ export async function ChartPanel() {
       <CardDescription>Balance View</CardDescription>
       <CardTitle className="mb-1">进度轴战力对比</CardTitle>
       <p className="mb-3 text-xs text-[#6f6559]">
-        绿线：各境界标准养成主角战力；灰虚线：同阶镜像敌人；红虚线：下一境界守门敌人。用于观察区间强度与跨阶崩坏，而非单纯境界倍率。
+        绿线：各境界标准养成主角战力；灰虚线：同阶镜像敌人；红虚线：独立破境守门模板。用于观察区间强度与跨阶崩坏，而非单纯境界倍率。
       </p>
       <ProgressionCurveChart
         points={chart.points.map((p) => ({

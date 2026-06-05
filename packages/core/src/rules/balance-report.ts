@@ -18,10 +18,14 @@ import {
 import { buildRealmOrderMap, resolveMilestoneEquipmentIds } from "./milestone-loadout";
 import { getLoadoutLimit } from "./loadout";
 import {
+  getBreakthroughGateTemplateScale,
   getChapterBossTemplateScale,
   sandboxEnemyPresetDefs,
 } from "../data/sandbox-enemy-presets";
 import {
+  filterEnemyEquipmentIdsForRealm,
+  resolveBreakthroughGateDefenderRealm,
+  resolveBreakthroughGateEnemyEquipmentIds,
   resolveAllSandboxEnemyPresets,
   resolveChapterBossDefenderRealm,
   resolveChapterBossEnemyEquipmentIds,
@@ -76,6 +80,9 @@ export type BotStrategyReport = {
 
 export type RealmGateMatch = {
   nextRealm: string;
+  enemyTemplateScale: number;
+  equipmentCount: number;
+  manualCount: number;
   duel: DuelSnapshot;
 };
 
@@ -166,6 +173,7 @@ export type BalanceReportAiPayload = {
     heroPower: number;
     manualPowerShare: number;
     nextRealm: string | null;
+    nextGateTemplateScale: number | null;
     nextGateWin: number | null;
     chapterBossLabel: string | null;
     chapterBossWin: number | null;
@@ -264,6 +272,7 @@ export function buildBalanceReportForAi(
       heroPower: row.heroPower,
       manualPowerShare: row.manualPowerShare,
       nextRealm: row.vsNextGate?.nextRealm ?? null,
+      nextGateTemplateScale: row.vsNextGate?.enemyTemplateScale ?? null,
       nextGateWin: row.vsNextGate ? roundReportRate(row.vsNextGate.duel.winChance) : null,
       chapterBossLabel: row.vsBandPreset?.presetLabel ?? null,
       chapterBossWin: row.vsBandPreset ? roundReportRate(row.vsBandPreset.duel.winChance) : null,
@@ -384,29 +393,6 @@ function heroContextForMilestone(state: BalanceReportState, heroRealm: string) {
   });
 }
 
-function enemyContextForMilestone(state: BalanceReportState, defenderRealm: string) {
-  const realmOrder = buildRealmOrderMap(state.realms);
-  const equipmentIds = resolveMilestoneEquipmentIds(
-    state.equipment,
-    defenderRealm,
-    realmOrder,
-  );
-  const milestoneManuals = resolveMilestoneManuals(
-    state.manuals,
-    defenderRealm,
-    realmOrder,
-  );
-  return getEvaluationContext({
-    baseStats: state.stats,
-    aptitude: state.aptitude,
-    equipment: state.equipment,
-    manuals: milestoneManuals,
-    equipmentIds,
-    includeManuals: true,
-    manualFilter: "milestone",
-  });
-}
-
 function heroContextForBot(state: BalanceReportState, botId: BotStrategyId) {
   if (botId === "milestone_standard") {
     return heroContextForMilestone(state, state.attackerRealm);
@@ -482,18 +468,43 @@ export function buildRealmSweep(state: BalanceReportState): RealmSweepRow[] {
     const manualPowerShare = heroPower > 0 ? manualContribution / heroPower : 0;
 
     let vsNextGate: RealmGateMatch | null = null;
-    const nextRealm = sortedRealms[index + 1];
-    if (nextRealm) {
-      const enemyCtx = enemyContextForMilestone(state, nextRealm.name);
+    const nextGateRealm = resolveBreakthroughGateDefenderRealm(heroRealm, sortedRealms);
+    if (nextGateRealm) {
+      const gateEquipmentIds = resolveBreakthroughGateEnemyEquipmentIds(
+        state.equipment,
+        nextGateRealm,
+        state.baseBagCapacity,
+      );
+      const realmOrder = buildRealmOrderMap(state.realms);
+      const gateManuals = resolveMilestoneManuals(
+        state.manuals,
+        nextGateRealm,
+        realmOrder,
+      );
+      const enemyCtx = getEvaluationContext({
+        baseStats: state.stats,
+        aptitude: state.aptitude,
+        equipment: state.equipment,
+        manuals: gateManuals,
+        equipmentIds: gateEquipmentIds,
+        includeManuals: true,
+        manualFilter: "milestone",
+      });
+      const gateScale = getBreakthroughGateTemplateScale(
+        mapRealmNameToBalanceBand(nextGateRealm),
+      );
       vsNextGate = {
-        nextRealm: nextRealm.name,
+        nextRealm: nextGateRealm,
+        enemyTemplateScale: gateScale,
+        equipmentCount: enemyCtx.activeEquipment.length,
+        manualCount: enemyCtx.activeManuals.length,
         duel: duelFromSimulate(
           state,
           heroCtx.stats,
           enemyCtx.stats,
           heroRealm,
-          nextRealm.name,
-          state.enemyTemplateScale,
+          nextGateRealm,
+          gateScale,
         ),
       };
     }
@@ -661,7 +672,11 @@ function buildBotMatches(
     aptitude: state.aptitude,
     equipment: state.equipment,
     manuals: state.manuals,
-    equipmentIds: state.enemyEquipmentIds,
+    equipmentIds: filterEnemyEquipmentIdsForRealm(
+      state.equipment,
+      state.enemyEquipmentIds,
+      state.defenderRealm,
+    ),
     includeManuals: false,
   });
   matches.push({
@@ -703,7 +718,11 @@ export function buildBalanceReportPayload(state: BalanceReportState): BalanceRep
     aptitude: state.aptitude,
     equipment: state.equipment,
     manuals: state.manuals,
-    equipmentIds: state.enemyEquipmentIds,
+    equipmentIds: filterEnemyEquipmentIdsForRealm(
+      state.equipment,
+      state.enemyEquipmentIds,
+      state.defenderRealm,
+    ),
     includeManuals: false,
   });
 
@@ -724,6 +743,7 @@ export function buildBalanceReportPayload(state: BalanceReportState): BalanceRep
     manuals: state.manuals,
     combatMultiplier: state.combatMultiplier,
     enemyTemplateScale: state.enemyTemplateScale,
+    baseBagCapacity: state.baseBagCapacity,
   });
 
   const crossRealmRisks = findCrossRealmRisks({
@@ -734,6 +754,7 @@ export function buildBalanceReportPayload(state: BalanceReportState): BalanceRep
     manuals: state.manuals,
     combatMultiplier: state.combatMultiplier,
     enemyTemplateScale: state.enemyTemplateScale,
+    baseBagCapacity: state.baseBagCapacity,
   });
 
   const realmSweep = buildRealmSweep(state);
@@ -798,13 +819,13 @@ export function applyBalanceRules(payload: BalanceReportPayload): BalanceRuleFla
         flags.push({
           code: "next_gate_weak",
           severity: "warn",
-          evidence: `${row.realm} → ${row.vsNextGate.nextRealm} 破境胜率 ${(win * 100).toFixed(1)}%（目标 ${NEXT_GATE_LOW * 100}–${NEXT_GATE_HIGH * 100}%）`,
+          evidence: `${row.realm} → ${row.vsNextGate.nextRealm} 破境守门模板胜率 ${(win * 100).toFixed(1)}%（scale ${row.vsNextGate.enemyTemplateScale}，目标 ${NEXT_GATE_LOW * 100}–${NEXT_GATE_HIGH * 100}%）`,
         });
       } else if (win > NEXT_GATE_HIGH) {
         flags.push({
           code: "next_gate_trivial",
           severity: "info",
-          evidence: `${row.realm} → ${row.vsNextGate.nextRealm} 破境胜率 ${(win * 100).toFixed(1)}% 偏高`,
+          evidence: `${row.realm} → ${row.vsNextGate.nextRealm} 破境守门模板胜率 ${(win * 100).toFixed(1)}% 偏高`,
         });
       }
     }

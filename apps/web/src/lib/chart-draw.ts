@@ -103,7 +103,7 @@ export function drawProgressionBenchmark(
   params: { points: ProgressionChartPoint[]; heroRealm: string; logScale: boolean },
 ) {
   const { ctx, width, height } = prepareCanvas(canvas, 900, 460);
-  const pad = { left: 58, right: 24, top: 36, bottom: 76 };
+  const pad = { left: 58, right: 24, top: 68, bottom: 76 };
   const allValues = params.points.flatMap((point) => [
     point.heroPower,
     point.mirrorEnemyPower,
@@ -179,28 +179,36 @@ export function drawProgressionBenchmark(
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   ctx.font = "700 13px Microsoft YaHei, Arial";
-  ctx.fillText(params.logScale ? "标准养成战力（对数）" : "标准养成战力（线性）", pad.left, 10);
+  const title = params.logScale ? "标准养成战力（对数）" : "标准养成战力（线性）";
+  ctx.fillText(title, pad.left, 10);
 
   const legend = [
     { color: "#1f7a69", label: "主角标准" },
     { color: "rgba(111, 101, 89, 0.85)", label: "同阶镜像", dashed: true },
-    { color: "#a94435", label: "下境界守门", dashed: true },
+    { color: "#a94435", label: "破境守门", dashed: true },
   ];
   let lx = pad.left;
+  let ly = 40;
   legend.forEach((item) => {
+    const labelWidth = ctx.measureText(item.label).width;
+    const itemWidth = 26 + labelWidth + 28;
+    if (lx > pad.left && lx + itemWidth > width - pad.right) {
+      lx = pad.left;
+      ly += 18;
+    }
     ctx.strokeStyle = item.color;
     ctx.lineWidth = 3;
     if (item.dashed) ctx.setLineDash([5, 4]);
     else ctx.setLineDash([]);
     ctx.beginPath();
-    ctx.moveTo(lx, 22);
-    ctx.lineTo(lx + 18, 22);
+    ctx.moveTo(lx, ly + 6);
+    ctx.lineTo(lx + 18, ly + 6);
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = "#6f6559";
     ctx.font = "11px Microsoft YaHei, Arial";
-    ctx.fillText(item.label, lx + 22, 16);
-    lx += 108;
+    ctx.fillText(item.label, lx + 22, ly);
+    lx += itemWidth;
   });
 
   ctx.save();
@@ -231,7 +239,7 @@ export function drawCultivationCurve(
   params: { points: CultivationChartPoint[]; heroRealm: string; logScale: boolean },
 ) {
   const { ctx, width, height } = prepareCanvas(canvas, 900, 460);
-  const pad = { left: 58, right: 24, top: 36, bottom: 76 };
+  const pad = { left: 58, right: 24, top: 58, bottom: 76 };
   const speedValues = params.points.map((p) => Math.max(p.cultivationSpeed, 0.0001));
   const rawMin = Math.min(...speedValues);
   const rawMax = Math.max(...speedValues);

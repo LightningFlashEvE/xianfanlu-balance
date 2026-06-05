@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "dev": "pnpm --filter @xianfanlu/web dev",
+    "dev:fresh": "pnpm db:seed && pnpm --filter @xianfanlu/web dev",
     "build": "pnpm -r build",
     "lint": "pnpm --filter @xianfanlu/web lint",
     "db:generate": "pnpm --filter @xianfanlu/database generate",

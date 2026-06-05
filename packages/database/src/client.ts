@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const defaultDbFile = path.join(packageRoot, "prisma", "dev.db");
+const schemaDir = path.join(packageRoot, "prisma");
 
 function resolveDatabaseUrl(): string {
   const raw = process.env.DATABASE_URL ?? `file:${defaultDbFile}`;
@@ -11,7 +12,11 @@ function resolveDatabaseUrl(): string {
     return raw;
   }
   const filePath = raw.slice("file:".length);
-  const absolute = path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
+  const absolute = path.isAbsolute(filePath)
+    ? filePath
+    : filePath.startsWith("./")
+      ? path.resolve(schemaDir, filePath)
+      : path.resolve(process.cwd(), filePath);
   return `file:${absolute}`;
 }
 

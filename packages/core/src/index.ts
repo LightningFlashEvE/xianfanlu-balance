@@ -10,3 +10,4 @@ export * from "./rules/balance-report";
 export * from "./rules/balance-adjustment-hints";
 export * from "./export/build-balance-export";
 export * from "./lib/numbers";
+export * from "./lib/collections";

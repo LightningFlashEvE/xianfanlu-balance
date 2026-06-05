@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import {
   addEquipment,
+  addEquipmentWithDefaults,
   addManual,
   deleteEquipment,
   deleteManual,
@@ -13,6 +14,7 @@ import {
 } from "@/actions/manage";
 import type { BalanceRealmBandId, ItemQualityId, RealmName } from "@xianfanlu/core";
 import { formatEquipmentTypeLabel, getEquipmentDomainLabel } from "@xianfanlu/core";
+import { Plus } from "lucide-react";
 import {
   equipmentTaxonomyGroups,
   itemQualityOptions,
@@ -28,7 +30,7 @@ import { Button } from "@/components/ui/button";
 
 type ManageData = Awaited<ReturnType<typeof getManageData>>;
 type EquipmentGroupMode = "none" | "domain" | "type" | "quality" | "balanceRealm";
-type ManualGroupMode = "none" | "type" | "rank" | "quality" | "maxRealm";
+type ManualGroupMode = "none" | "type" | "rank" | "maxRealm";
 
 const equipmentGroupOptions: { value: EquipmentGroupMode; label: string }[] = [
   { value: "none", label: "不分组" },
@@ -42,7 +44,6 @@ const manualGroupOptions: { value: ManualGroupMode; label: string }[] = [
   { value: "none", label: "不分组" },
   { value: "type", label: "按种类" },
   { value: "rank", label: "按等阶" },
-  { value: "quality", label: "按品阶" },
   { value: "maxRealm", label: "按可修至境界" },
 ];
 
@@ -51,7 +52,7 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
   const [pending, startTransition] = useTransition();
   const [equipment, setEquipment] = useState(initial.equipment);
   const [manuals, setManuals] = useState(initial.manuals);
-  const [equipmentGroupMode, setEquipmentGroupMode] = useState<EquipmentGroupMode>("none");
+  const [equipmentGroupMode, setEquipmentGroupMode] = useState<EquipmentGroupMode>("type");
   const [manualGroupMode, setManualGroupMode] = useState<ManualGroupMode>("none");
   const [equipmentSearch, setEquipmentSearch] = useState("");
   const [manualSearch, setManualSearch] = useState("");
@@ -77,6 +78,17 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
     run(() => updateManual(id, patch));
   };
 
+  const addEquipmentForGroup = (
+    item?: ManageData["equipment"][0],
+    mode: EquipmentGroupMode = equipmentGroupMode,
+  ) => {
+    if (!item || mode === "none") {
+      run(addEquipment);
+      return;
+    }
+    run(() => addEquipmentWithDefaults(equipmentDefaultsForGroup(item, mode)));
+  };
+
   const filteredEquipment = useMemo(() => {
     const q = equipmentSearch.trim().toLowerCase();
     if (!q) return equipment;
@@ -92,7 +104,7 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
     if (!q) return manuals;
     return manuals.filter((item) => {
       const haystack =
-        `${item.name} ${item.externalId} ${item.type} ${item.rank} ${item.quality} ${item.maxRealm} ${item.proficiency}`.toLowerCase();
+        `${item.name} ${item.externalId} ${item.type} ${item.rank} ${item.maxRealm} ${item.proficiency}`.toLowerCase();
       return haystack.includes(q);
     });
   }, [manuals, manualSearch]);
@@ -144,9 +156,6 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
             <CardDescription>Equipment</CardDescription>
             <CardTitle>装备与外物</CardTitle>
           </div>
-          <Button type="button" variant="outline" disabled={pending} onClick={() => run(addEquipment)}>
-            添加装备
-          </Button>
         </div>
         <ManageListToolbar
           groupLabel="装备分组"
@@ -252,7 +261,47 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
                     </Button>
                   </td>
                 </tr>
-              ))}
+              ), {
+                renderUngroupedHeader: (colSpan) => (
+                  <tr key="add-equipment">
+                    <td colSpan={colSpan} className="bg-[#fffaf0] px-3 py-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={pending}
+                        onClick={() => addEquipmentForGroup(undefined, "none")}
+                        className="gap-1.5"
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                        添加装备
+                      </Button>
+                    </td>
+                  </tr>
+                ),
+                renderGroupHeader: ({ label, count, item, colSpan }) => (
+                  <tr key={`group-${label}`}>
+                    <td colSpan={colSpan} className="bg-[#1f7a69]/8 px-3 py-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-sm font-extrabold text-[#15584c]">
+                          {label} <span className="text-xs text-[#6f6559]">{count} 项</span>
+                        </span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={pending}
+                          onClick={() => addEquipmentForGroup(item, equipmentGroupMode)}
+                          className="gap-1.5"
+                        >
+                          <Plus className="h-3.5 w-3.5" />
+                          {equipmentAddButtonLabel(equipmentGroupMode)}
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ),
+              })}
             </tbody>
           </table>
         </div>
@@ -276,7 +325,7 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
           groupValue={manualGroupMode}
           groupOptions={manualGroupOptions}
           onGroupChange={(v) => setManualGroupMode(v as ManualGroupMode)}
-          searchPlaceholder="名称、ID、种类、等阶、品阶、可修至境界…"
+          searchPlaceholder="名称、ID、种类、等阶、可修至境界…"
           searchValue={manualSearch}
           onSearchChange={setManualSearch}
           filteredCount={filteredManuals.length}
@@ -289,7 +338,6 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
               <tr className="text-left text-xs font-extrabold text-[#6f6559]">
                 <th className="border-b px-2 py-2">名称</th>
                 <th className="border-b px-2 py-2">等阶</th>
-                <th className="border-b px-2 py-2">品阶</th>
                 <th className="border-b px-2 py-2">种类</th>
                 <th className="border-b px-2 py-2">熟练度</th>
                 <th className="border-b px-2 py-2">可修至境界</th>
@@ -317,22 +365,6 @@ export function ManageWorkspace({ initial }: { initial: ManageData }) {
                       onChange={(e) => saveManual(item.id, { rank: e.target.value })}
                     >
                       {manualRankOptions.map((v) => (
-                        <option key={v} value={v}>
-                          {v}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td className="border-b px-2 py-2">
-                    <select
-                      className="w-full min-h-8 rounded-md border border-[#d7c7aa] px-1 text-sm"
-                      value={item.quality}
-                      disabled={pending}
-                      onChange={(e) =>
-                        saveManual(item.id, { quality: e.target.value as ItemQualityId })
-                      }
-                    >
-                      {itemQualityOptions.map((v) => (
                         <option key={v} value={v}>
                           {v}
                         </option>
@@ -434,9 +466,28 @@ function manualGroupLabel(item: ManageData["manuals"][0], mode: ManualGroupMode)
   if (mode === "none") return "";
   if (mode === "type") return item.type;
   if (mode === "rank") return item.rank;
-  if (mode === "quality") return item.quality;
   if (mode === "maxRealm") return item.maxRealm;
   return "其他";
+}
+
+function equipmentDefaultsForGroup(
+  item: ManageData["equipment"][0],
+  mode: EquipmentGroupMode,
+): Parameters<typeof addEquipmentWithDefaults>[0] {
+  if (mode === "type" || mode === "domain") {
+    return { slot: item.slot, category: item.category };
+  }
+  if (mode === "quality") return { quality: item.quality };
+  if (mode === "balanceRealm") return { balanceRealm: item.balanceRealm };
+  return {};
+}
+
+function equipmentAddButtonLabel(mode: EquipmentGroupMode) {
+  if (mode === "type") return "添加到此类型";
+  if (mode === "domain") return "添加到此大类";
+  if (mode === "quality") return "添加到此品阶";
+  if (mode === "balanceRealm") return "添加到此境界段";
+  return "添加装备";
 }
 
 function groupItems<T extends ManageData["equipment"][0] | ManageData["manuals"][0]>(
@@ -461,17 +512,30 @@ function renderGroups<T extends ManageData["equipment"][0] | ManageData["manuals
   mode: EquipmentGroupMode | ManualGroupMode,
   kind: "equipment" | "manual",
   renderRow: (item: T) => ReactNode,
+  options?: {
+    renderUngroupedHeader?: (colSpan: number) => ReactNode;
+    renderGroupHeader?: (group: {
+      label: string;
+      count: number;
+      item: T;
+      colSpan: number;
+    }) => ReactNode;
+  },
 ) {
+  const colSpan = kind === "equipment" ? 7 : 8;
   if (mode === "none") {
-    return items.length === 0 ? (
+    const rows = items.length === 0 ? (
       <tr>
-        <td colSpan={kind === "equipment" ? 7 : 9} className="px-3 py-6 text-center text-sm text-[#6f6559]">
+        <td colSpan={colSpan} className="px-3 py-6 text-center text-sm text-[#6f6559]">
           无匹配条目
         </td>
       </tr>
     ) : (
       items.map((item) => renderRow(item))
     );
+    return options?.renderUngroupedHeader
+      ? [options.renderUngroupedHeader(colSpan), ...(Array.isArray(rows) ? rows : [rows])]
+      : rows;
   }
 
   const labelFor = (item: T) =>
@@ -483,7 +547,7 @@ function renderGroups<T extends ManageData["equipment"][0] | ManageData["manuals
   if (sorted.length === 0) {
     return (
       <tr>
-        <td colSpan={kind === "equipment" ? 7 : 9} className="px-3 py-6 text-center text-sm text-[#6f6559]">
+        <td colSpan={colSpan} className="px-3 py-6 text-center text-sm text-[#6f6559]">
           无匹配条目
         </td>
       </tr>
@@ -492,18 +556,20 @@ function renderGroups<T extends ManageData["equipment"][0] | ManageData["manuals
 
   let current = "";
   const nodes: ReactNode[] = [];
-  const colSpan = kind === "equipment" ? 7 : 9;
   for (const item of sorted) {
     const label = labelFor(item);
     if (label !== current) {
       current = label;
-      const count = items.filter((i) => labelFor(i) === label).length;
+      const groupRows = items.filter((i) => labelFor(i) === label);
+      const count = groupRows.length;
       nodes.push(
-        <tr key={`group-${label}`}>
-          <td colSpan={colSpan} className="bg-[#1f7a69]/8 px-3 py-2 text-sm font-extrabold text-[#15584c]">
-            {label} <span className="text-xs text-[#6f6559]">{count} 项</span>
-          </td>
-        </tr>,
+        options?.renderGroupHeader?.({ label, count, item: groupRows[0] ?? item, colSpan }) ?? (
+          <tr key={`group-${label}`}>
+            <td colSpan={colSpan} className="bg-[#1f7a69]/8 px-3 py-2 text-sm font-extrabold text-[#15584c]">
+              {label} <span className="text-xs text-[#6f6559]">{count} 项</span>
+            </td>
+          </tr>
+        ),
       );
     }
     nodes.push(renderRow(item));

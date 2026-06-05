@@ -19,6 +19,16 @@ export async function HeroBreakdownPanel() {
   });
   const realmScale = Math.sqrt(Math.max(realm.multiplier, 0.01));
   const radarAxes = buildRadarAxes(context.stats);
+  const equipmentTrace = context.activeEquipment.map((item) => ({
+    id: item.instanceId,
+    name: item.name,
+    meta: `${item.slot} · ${item.category} · ${item.balanceRealm}`,
+  }));
+  const manualTrace = milestoneManuals.map((manual) => ({
+    id: manual.instanceId,
+    name: manual.name,
+    meta: `${manual.type} · ${manual.rank} · 可修至 ${manual.maxRealm}`,
+  }));
 
   const rows: [string, string][] = [
     ["基础战斗", formatNumber(breakdown.base, 1)],
@@ -50,6 +60,49 @@ export async function HeroBreakdownPanel() {
           </dl>
         </div>
       </div>
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <TraceList title="标准养成装备" count={equipmentTrace.length} rows={equipmentTrace} />
+        <TraceList title="标准养成功法" count={manualTrace.length} rows={manualTrace} />
+      </div>
     </Card>
+  );
+}
+
+function TraceList({
+  title,
+  count,
+  rows,
+}: {
+  title: string;
+  count: number;
+  rows: { id: string; name: string; meta: string }[];
+}) {
+  return (
+    <div className="rounded-lg border border-[#d7c7aa]/80 bg-[rgba(255,250,240,0.7)] p-3">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <h3 className="text-sm font-bold">{title}</h3>
+        <span className="text-xs font-bold text-[#15584c]">{count} 项</span>
+      </div>
+      {rows.length === 0 ? (
+        <p className="rounded-md border border-[#d7c7aa]/60 bg-[#fffdf7]/70 px-3 py-2 text-sm text-[#6f6559]">
+          暂无
+        </p>
+      ) : (
+        <ul className="grid max-h-60 gap-1.5 overflow-y-auto pr-1">
+          {rows.map((row) => (
+            <li
+              key={row.id}
+              className="grid grid-cols-[auto_1fr] gap-x-2 rounded-md border border-[#d7c7aa]/60 bg-[#fffdf7]/70 px-3 py-2 text-sm"
+            >
+              <span className="font-mono text-xs font-bold text-[#15584c]">{row.id}</span>
+              <span className="min-w-0">
+                <strong className="block truncate">{row.name}</strong>
+                <span className="block truncate text-xs text-[#6f6559]">{row.meta}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

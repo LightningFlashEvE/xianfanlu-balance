@@ -1,5 +1,6 @@
 import {
   calculateRatedPower,
+  filterEnemyEquipmentIdsForRealm,
   formatCompact,
   formatNumber,
   getEvaluationContext,
@@ -215,12 +216,17 @@ export function computeSandboxHeroPower(state: SandboxCombatState): SandboxHeroP
 export function computeSandboxEnemyPower(state: SandboxCombatState): SandboxEnemyPower {
   const defenderRealm =
     state.realms.find((r) => r.name === state.defenderRealm) ?? state.realms[0]!;
+  const enemyEquipmentIds = filterEnemyEquipmentIdsForRealm(
+    state.equipment,
+    state.enemyEquipmentIds,
+    defenderRealm.name,
+  );
   const enemyContext = getEvaluationContext({
     baseStats: state.stats,
     aptitude: state.aptitude,
     equipment: state.equipment,
     manuals: state.manuals,
-    equipmentIds: state.enemyEquipmentIds,
+    equipmentIds: enemyEquipmentIds,
     includeManuals: false,
   });
   const breakdown = calculateRatedPower({
@@ -268,6 +274,11 @@ export function computeSandboxDuel(state: SandboxCombatState): SandboxDuelSummar
     state.realms.find((r) => r.name === state.attackerRealm) ?? state.realms[0]!;
   const defenderRealm =
     state.realms.find((r) => r.name === state.defenderRealm) ?? state.realms[0]!;
+  const enemyEquipmentIds = filterEnemyEquipmentIdsForRealm(
+    state.equipment,
+    state.enemyEquipmentIds,
+    defenderRealm.name,
+  );
   const heroContext = getEvaluationContext({
     baseStats: state.stats,
     aptitude: state.aptitude,
@@ -281,7 +292,7 @@ export function computeSandboxDuel(state: SandboxCombatState): SandboxDuelSummar
     aptitude: state.aptitude,
     equipment: state.equipment,
     manuals: state.manuals,
-    equipmentIds: state.enemyEquipmentIds,
+    equipmentIds: enemyEquipmentIds,
     includeManuals: false,
   });
   const duel = simulateDuel({

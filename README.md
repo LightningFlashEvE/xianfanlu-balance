@@ -18,6 +18,8 @@ pnpm dev
 
 浏览器打开 http://localhost:3000
 
+`pnpm dev` 不会自动 seed，避免覆盖界面调参。改过 core JSON 并希望用初始库启动时，用 `pnpm dev:fresh`。
+
 ## 页面
 
 | 路由 | 说明 |
@@ -55,6 +57,7 @@ cp apps/web/.env.example apps/web/.env
 | 命令 | 说明 |
 |------|------|
 | `pnpm dev` | 启动 Web（默认 http://localhost:3000） |
+| `pnpm dev:fresh` | 先 seed 再启动 Web，会覆盖当前 SQLite 调参数据 |
 | `pnpm db:push` | 同步 Prisma schema 到 SQLite |
 | `pnpm db:seed` | 从 core JSON 灌库（境界/装备/功法/主角） |
 | `pnpm db:studio` | Prisma Studio |

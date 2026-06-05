@@ -5,3 +5,4 @@ export * from "./progression";
 export * from "./manual-scale";
 export * from "./context";
 export * from "./duel";
+export * from "./ascension";

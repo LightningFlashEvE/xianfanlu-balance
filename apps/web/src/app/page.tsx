@@ -23,7 +23,7 @@ export default function HomePage() {
       <BalanceLayerHeading
         layer="progression"
         title="进度 · 标准养成轴"
-        description="按数值管理中装备「合理大境界段」与功法可修至境界，对比同阶镜像与下境界守门敌人，观察区间强度与跨阶风险。"
+        description="按装备合理大境界段与功法累计上限，对比同阶镜像与独立破境守门模板，观察区间强度与跨阶风险。"
       />
       <ProgressionSummaryGrid />
       <ProgressionChartsSection />
